@@ -12,6 +12,10 @@
         <header>Registration Form</header>
         <form action="" method="post" class="form">
             <div class="input_box">
+                <label for="">Username</label>
+                <input type="text" name="username" placeholder="Enter your username">
+            </div>
+            <div class="input_box">
                 <label for="">First Name</label>
                 <input type="text" name="name" placeholder="Enter your name">
             </div>
@@ -67,6 +71,10 @@
         <button type="submit" name="createAccountBtn" class="creatAcc">Create Account</button>
 
     </section>
+
+    <script src="PL/js/jquery-3.6.4.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
+    <script src="PL/js/authenticateScript.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
+
 </body>
 
 </html>

@@ -2,7 +2,7 @@
     font-family: 'poppins' ,sans-serif;
 }
 body{
-    background-image: url("/PL/images/background.webp");
+    background-image: url("/PL/images/background.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -85,4 +85,17 @@ i{
 label a{
     text-decoration: none;
     color: #fff;
+}
+.label-holder{
+    text-align: center;
+    margin-top: 5px;
+}
+.error{
+
+    color: rgb(247, 116, 116);
+    font-style: italic;
+    margin-bottom: 5px;
+    text-align: justify;
+    font-size: 10px;
+
 }
