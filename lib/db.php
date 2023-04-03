@@ -66,14 +66,14 @@ class DB{
                     }
                 }
                 else{
-                    $filterSql .= ' = ' . $val . ',';
+                    $filterSql .= " = '" . $val . "',";
                 }
             }
             $filterSql = trim($filterSql, ',') . ')';
         }
 
         $sqlCommand = "SELECT " . $fields . " from `" . $table . "` main " . $joins . ' ' . $filterSql . ' ' . $orderBy . ' ' . $groupBy;
-        
+        // return $sqlCommand;
         $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
         $output = array();
         while ($row=mysqli_fetch_assoc($sqlOut)){
@@ -99,5 +99,23 @@ class DB{
             }
             else return $output;
         }
+    }
+
+    public static function addEntity($table, $values){
+        global $DATABASE_CONNECTION;
+
+        $fields = '`' . $table . '`(';
+        $vals = '(';
+        foreach($values as $key => $val){
+            $vals .= "'" . $val . "',";
+            $fields .= "`" . $key . "`,";
+        }
+        $vals = trim($vals, ',') . ')';
+        $fields = trim($fields, ',') . ')';
+
+        $sqlCommand = "INSERT INTO " . $fields . " VALUES " . $vals;
+        $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
+
+        return mysqli_affected_rows($DATABASE_CONNECTION) == 1 ? true : false;
     }
 }

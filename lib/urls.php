@@ -11,4 +11,7 @@ function addServerImplementedPaths(){
     //Homepage urls
     array_push($SERVER_IMPLEMENTED_PATHS, 'homepage');
     array_push($SERVER_IMPLEMENTED_PATHS, 'homepage/test');
+
+    //Post url
+    array_push($SERVER_IMPLEMENTED_PATHS, 'post');
 }
