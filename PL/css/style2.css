@@ -25,6 +25,7 @@ body{
 }
 .signup-container .form{
     margin-top: 30px;
+    padding-right: 20px;
 }
 .form .input_box{
     width: 100%;
