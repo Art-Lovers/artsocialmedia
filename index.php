@@ -24,7 +24,7 @@ else{
     //         'logintoken' => 'token'
     //     )
     // )));
-    $param['se'] = true;
-    echo var_dump(DB::select('users', array('main.userid' => '1'), $param));
+    //$param['se'] = true;
+    //echo var_dump(DB::select('users', array('main.userid' => '1'), $param));
     // echo '404 :(';
 }

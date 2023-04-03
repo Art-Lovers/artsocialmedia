@@ -1,0 +1,89 @@
+*{
+    font-family: 'poppins' ,sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rgb(110, 84, 134);
+    padding: 20px;
+}
+.signup-container{
+    position:relative;
+    max-width: 700px;
+    width: 100%;
+    background-color: aliceblue;
+    padding: 25px;
+    border-radius: 8px;
+  
+}
+.signup-container header{
+    color:#333;
+    text-align: center;
+    font-size: 40px;
+}
+.signup-container .form{
+    margin-top: 30px;
+}
+.form .input_box{
+    width: 100%;
+    margin-top: 20px;
+}
+.input_box label{
+    color: #333;
+}
+.form .input_box input {
+    position: relative;
+    font-size: 1rem;
+    height: 50px;
+    margin-top: 8px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #ddd;
+    padding: 0 10px;
+}
+.form .gender-box{
+    margin-top: 20px;
+}
+.gender-box h3{
+    color:#333;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.form .column {
+    display: flex;
+    column-gap: 30px;
+}
+.form :where( .gender-option, .gender){
+    display:flex;
+    align-items: center;
+    column-gap: 50px;
+
+}
+.form .gender{
+    column-gap: 5px;
+    cursor: pointer;
+}
+.signup-container button{
+
+    border-radius: 30px;
+    font-size: 15px;
+    height: 45px;
+    outline: none;
+    width: 100%;
+    color: #fff;
+    background: rgb(64, 31, 186);
+margin-top: 20px;
+}
+/*responsive*/
+@media screen and (max-width: 500px) {
+    .form .column{
+        flex-wrap: wrap;
+    }
+    
+}
+
+
+
+

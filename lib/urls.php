@@ -7,6 +7,7 @@ function addServerImplementedPaths(){
 
     //Authentication Urls
     array_push($SERVER_IMPLEMENTED_PATHS, 'login');
+    array_push($SERVER_IMPLEMENTED_PATHS, 'signup');
 
     //Homepage urls
     array_push($SERVER_IMPLEMENTED_PATHS, 'homepage');
