@@ -8,13 +8,12 @@ $(document).ready(function(){
             $('#userError').text("");
         }
         
-        $(".pr-password").passwordRequirements({
-            numCharacters: 8,
-            useLowercase: true,
-            useUppercase: true,
-            useNumbers: true,
-            useSpecial: true
-          });
+        if(!($('.input[name="username"]').val().match(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)) ){
+            $('#passError').text("Password must have 1 lowercase and 1 uppwecase letter, 1 number and 1 special character (!@#$%^&*)");
+        }
+        else{
+            $('#passError').text("");
+        }
 
         return false;
       });

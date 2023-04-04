@@ -6,7 +6,6 @@
     <title> Login Page </title>
     <link href="PL/css/boxicons.min.css?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>" rel='stylesheet'>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" type="text/css" href="PL/css/jquery.passwordRequirements.css?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>">    
     <link rel="stylesheet" type="text/css" href="PL/css/style.css?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>">    
 </head>
 
@@ -26,18 +25,11 @@
                     <label class="error" id="userError"></label>
                 </div>
 
-                <div>
-                
-                </div>
-
                 <div class="input-field">
                     <input type="Password" class="input pr-password" placeholder="Password" name="password" required minlength="8"
                     maxlength="30">
                     <i class='bx bx-lock-alt'></i>
-                </div>
-
-                <div>
-                <label class="error" id="passError"></label>
+                    <label class="error" id="passError"></label>
                 </div>
 
                 <div class="input-field">
