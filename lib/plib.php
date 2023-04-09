@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // Includes Area
 include_once $_SERVER['DOCUMENT_ROOT'].'/lib/urls.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';

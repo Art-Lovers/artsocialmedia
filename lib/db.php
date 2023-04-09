@@ -54,7 +54,7 @@ class DB{
 
         $filterSql = '';
         if(!empty($filter)){
-            $filterSql .= 'WHERE (';
+            $filterSql .= 'WHERE ';
             foreach($filter as $field => $val){
                 $filterSql .= $field;
                 if(is_array($val)){
@@ -66,10 +66,10 @@ class DB{
                     }
                 }
                 else{
-                    $filterSql .= " = '" . $val . "',";
+                    $filterSql .= " = '" . $val . "' AND";
                 }
             }
-            $filterSql = trim($filterSql, ',') . ')';
+            $filterSql = trim($filterSql, 'AND');
         }
 
         $sqlCommand = "SELECT " . $fields . " from `" . $table . "` main " . $joins . ' ' . $filterSql . ' ' . $orderBy . ' ' . $groupBy;

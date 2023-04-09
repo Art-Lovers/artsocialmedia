@@ -13,7 +13,6 @@
     <div class="box">
         <div class="container">
             <div class="top">
-                <span>Have an account?</span>
                 <header>Login</header>
             </div>
             <form method="post" action="" id="loginForm">
@@ -38,7 +37,7 @@
 
                 <div class="two-col">
                     <div class="one">
-                        <input type="checkbox" name="check" id="check">
+                        <input type="checkbox" name="rememberMe" id="check">
                         <label for="check"> Remember Me</label>
                     </div>
                     <div class="two">

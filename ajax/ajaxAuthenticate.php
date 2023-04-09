@@ -1,4 +1,5 @@
 <?php 
+
 include_once $_SERVER['DOCUMENT_ROOT'].'/lib/plib.php';
 $post=$_POST;
 
@@ -27,4 +28,33 @@ if($post['ajaxCall']=='signup'){
 
     SignUp::createAccount($userData,$profileData);
     echo 'success';
+}
+
+
+else if($post['ajaxCall']=='login'){
+    $data=json_decode($post['data'],true);
+    
+    foreach($data as $field){
+        $parseData[$field['name']]=$field['value'];
+    }
+    
+    // return var_dump(Login::authenticateUser($parseData['username'], $parseData['password']));
+
+    if(Login::authenticateUser($parseData['username'], $parseData['password'])){
+        echo 'Logged in!';
+        return;
+    }
+
+    else{
+        echo 'Ke probleme me login!';
+        return;
+    }
+
+
+}
+
+else if($post['ajaxCall']=='logout'){
+    
+    unset($_SESSION['userId']);
+
 }

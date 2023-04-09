@@ -15,6 +15,14 @@ $(document).ready(function(){
             $('#passError').text("");
         }
 
+        $.post("ajax/ajaxAuthenticate.php", {ajaxCall: "login", data: JSON.stringify( $("#loginForm").serializeArray() )}, function(data, status){
+            alert("Data: " + data + "\nStatus: " + status);
+            window.location.replace("/homepage");
+
+          });
+
+
+
         return false;
       });
   }); 
