@@ -116,6 +116,6 @@ class DB{
         $sqlCommand = "INSERT INTO " . $fields . " VALUES " . $vals;
         $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
 
-        return mysqli_affected_rows($DATABASE_CONNECTION) == 1 ? true : false;
+        return mysqli_insert_id($DATABASE_CONNECTION);
     }
 }

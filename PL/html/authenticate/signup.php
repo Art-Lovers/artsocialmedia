@@ -34,7 +34,7 @@
                 </div>
                 <div class="input_box">
                     <label for="">Phone number</label>
-                    <input type="number" name="phoneNumber" placeholder="Enter your phone number" min="0">
+                    <input type="text" name="phoneNumber" placeholder="Enter your phone number" min="0">
                     <label class="error" id='phoneNumErr'></label>
                 </div>
             </div>
