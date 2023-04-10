@@ -13,6 +13,7 @@ $(document).ready(function(){
 
     $.post("ajax/ajaxAuthenticate.php",{ajaxCall: 'signup',data:JSON.stringify( $("#signupForm").serializeArray() )}, function(data, status){
         alert("Data: " + data + "\nStatus: " + status);
+        window.location.replace("/login");
       });
 
       return false;
