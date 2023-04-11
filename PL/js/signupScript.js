@@ -31,8 +31,22 @@ $(document).ready(function(){
 
     if(userValidation && passwordValidation && passwordConfirmValidation){
         $.post("ajax/ajaxAuthenticate.php",{ajaxCall: 'signup',data:JSON.stringify( $("#signupForm").serializeArray() )}, function(data, status){
-            alert("Data: " + data + "\nStatus: " + status);
+        if(data=="success"){
             window.location.replace("/login");
+        } 
+        if(data=="Username already taken!"){
+            $('#userErr').text('Username already taken!');
+        }
+        else{
+            $('#userErr').text("");
+        }
+        if(data=="Email already exists!"){
+            $('#email').text('Email already exists!');
+        }
+        else{
+            $('#email').text("");
+        }
+        
         });
     }
     
