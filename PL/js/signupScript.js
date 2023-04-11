@@ -31,6 +31,7 @@ $(document).ready(function(){
 
     if(userValidation && passwordValidation && passwordConfirmValidation){
         $.post("ajax/ajaxAuthenticate.php",{ajaxCall: 'signup',data:JSON.stringify( $("#signupForm").serializeArray() )}, function(data, status){
+            console.log(data=="Email already exists!");
         if(data=="success"){
             window.location.replace("/login");
         } 
@@ -41,10 +42,10 @@ $(document).ready(function(){
             $('#userErr').text("");
         }
         if(data=="Email already exists!"){
-            $('#email').text('Email already exists!');
+            $('#emailErr').text('Email already exists!');
         }
         else{
-            $('#email').text("");
+            $('#emailErr').text("");
         }
         
         });
