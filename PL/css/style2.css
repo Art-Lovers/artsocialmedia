@@ -84,7 +84,12 @@ margin-top: 20px;
     }
     
 }
+.error{
 
+    color: rgb(247, 116, 116);
+    font-style: italic;
+    margin-bottom: 5px;
+    text-align: justify;
+    font-size: 12px;
 
-
-
+}

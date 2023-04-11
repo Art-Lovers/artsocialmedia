@@ -1,40 +1,57 @@
 $(document).ready(function(){
     $("#signupForm").on("submit", function(){
-    userError=false;
-    if(!($('.input[name="username"]').val().match(/^[A-Za-z0-9]+$/)) ){
-        $('#userErr').text("Username must be alphanumeric. No special characters allowed.");
-        userError=true;
-    }
-    else { $('#userErr').text("");}
 
-    nameError=false;
-    if(!($('.input[name="firstname"]').val().match(/^[A-Za-z0-9]+$/))){
-        $('#nameErr').text("Name must me alphanumeric. No special characters allowed.");
-        nameError=true;
-    }
-    else {$('#nameErr').text("");}
-    
-    lastNameError=false;
-    if(!($('.input[name="lastname"]').val().match(/^[A-Za-z0-9]+$/))){
-        $('#nameErr').text("Name must me alphanumeric. No special characters allowed.");
-        lastNameError=true;
-    }
-    else {$('#nameErr').text("");}
-    
-    passError=false;
-    if(!($('.input[name="password"]').val().match(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)) ){
-        $('#passError').text("Password must have 1 lowercase and 1 uppwecase letter, 1 number and 1 special character (!@#$%^&*)");
-        passError=true;
+    var userValidation = true;
+    var passwordValidation = true;
+    var passwordConfirmValidation = true;
+
+    if(!($('.input[name="username"]').val().match(/^[A-Za-z0-9]+$/))){
+        $('#userErr').text("Username must only be alphanumeric. No special characters allowed.");
+        userValidation = false;
     }
     else{
-        $('#passError').text("");
+        $('#userErr').text("");
     }
 
-    $.post("ajax/ajaxAuthenticate.php",{ajaxCall: 'signup',data:JSON.stringify( $("#signupForm").serializeArray() )}, function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
-      });
+    if(!($('.input[name="password"]').val().match(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)) ){
+        $('#passwordErr').text("Password must have 1 lowercase and 1 uppwecase letter, 1 number and 1 special character (!@#$%^&*)");
+        passwordValidation = false;
+    }
+    else{
+        $('#passwordErr').text("");
+    }
 
-      return false;
+    if(!($('.input[name="confirmpassword"]').val() == $('.input[name="password"]').val())){
+        $("#passconfirmfErr").text("Password doesn't match!");
+        passwordConfirmValidation = false;
+    }
+    else{
+        $('#passconfirmfErr').text("");
+    }
+
+    if(userValidation && passwordValidation && passwordConfirmValidation){
+        $.post("ajax/ajaxAuthenticate.php",{ajaxCall: 'signup',data:JSON.stringify( $("#signupForm").serializeArray() )}, function(data, status){
+            console.log(data=="Email already exists!");
+        if(data=="success"){
+            window.location.replace("/login");
+        } 
+        if(data=="Username already taken!"){
+            $('#userErr').text('Username already taken!');
+        }
+        else{
+            $('#userErr').text("");
+        }
+        if(data=="Email already exists!"){
+            $('#emailErr').text('Email already exists!');
+        }
+        else{
+            $('#emailErr').text("");
+        }
+        
+        });
+    }
+    
+    return false;
 
 });
 
