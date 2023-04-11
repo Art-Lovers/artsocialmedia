@@ -65,11 +65,13 @@
                 <label for="">Create Password</label>
                 <input type="password" name="password" placeholder="minimum length is 8 characters" minlength="8"
                     maxlength="30" required>
+                <label class="error" id='passwordErr'></label>
             </div>
             <div class="input_box">
                 <label for="">Confirm Password</label>
                 <input type="password" name="confirmpassword" placeholder="Confirm Password" minlength="8"
                     maxlength="30" required>
+                    <label class="error" id='passconfirmfErr'></label>
             </div>
 
             <button type="submit" name="createAccountBtn" class="creatAcc">Create Account</button>
