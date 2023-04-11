@@ -18,7 +18,7 @@
             </div>
             <div class="input_box">
                 <label for="">Last Name</label>
-                <input type="text" class="input " name="lastname" placeholder="Enter your last name" required>
+                <input type="text" class="input" name="lastname" placeholder="Enter your last name" required>
                 <label class="error" id='lastNameErr'></label>
             </div>
             <div class="input_box">
@@ -63,13 +63,13 @@
             </div>
             <div class="input_box">
                 <label for="">Create Password</label>
-                <input type="password" name="password" placeholder="minimum length is 8 characters" minlength="8"
+                <input type="password" name="password" class="input" placeholder="minimum length is 8 characters" minlength="8"
                     maxlength="30" required>
                 <label class="error" id='passwordErr'></label>
             </div>
             <div class="input_box">
                 <label for="">Confirm Password</label>
-                <input type="password" name="confirmpassword" placeholder="Confirm Password" minlength="8"
+                <input type="password" name="confirmpassword" class="input" placeholder="Confirm Password" minlength="8"
                     maxlength="30" required>
                     <label class="error" id='passconfirmfErr'></label>
             </div>
