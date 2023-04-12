@@ -21,9 +21,9 @@ if (invalidInput==false){
         $.post("ajax/ajaxAuthenticate.php", {ajaxCall: "login", data: JSON.stringify( $("#loginForm").serializeArray() )}, function(data, status){
             alert("Data: " + data + "\nStatus: " + status);
 
-            if (data!='Ke probleme me login!'){
+            if (data =='Logged in!'){
 
-            window.location.replace("/homepage");
+                window.location.replace("/homepage");
             }
           });
 
