@@ -6,7 +6,6 @@ class SignUp{
         
         $userId=DB::addEntity('users',$userData);
         $profileData['userId']=$userId;
-        $_SESSION['userId']=$userId;
         DB::addEntity('profiles',$profileData);
         
     }

@@ -6,7 +6,7 @@
     <title> Login Page </title>
     <link href="PL/css/boxicons.min.css?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>" rel='stylesheet'>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" type="text/css" href="PL/css/style.css?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>">    
+    <link rel="stylesheet" type="text/css" href="PL/css/style.css?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>">
 </head>
 
 <body>
@@ -47,6 +47,18 @@
                 <div class = "label-holder">
                     <label> <a href="signup">Not a member? Sign up!</a> </label>
                 </div>
+
+                <div class="input-field">
+                    <div id="g_id_onload"
+                        data-client_id="819376771805-0htst76pfecb3uju6bfh1n4pe3h9uaot.apps.googleusercontent.com"
+                        data-login_uri="https://localhost/ajax/ajaxAuthenticate.php"
+                        data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin"
+                        data-type="icon">
+                    </div>
+                </div>
+
             </form>
 
 
@@ -54,6 +66,7 @@
         </div>
 
     </div>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="PL/js/jquery-3.6.4.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
     <script src="PL/js/jquery.validate.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>    
     <script src="PL/js/authenticateScript.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
