@@ -13,7 +13,6 @@ echo var_dump(DB::select('users', array('userid'=>$_SESSION['userId']))[0]['user
 <button id="logout">Log Out</button>
 
 
-
 <script src="PL/js/jquery-3.6.4.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
 <script src="PL/js/jquery.validate.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
 <script>
@@ -27,6 +26,8 @@ echo var_dump(DB::select('users', array('userid'=>$_SESSION['userId']))[0]['user
 
 
     })
+
+    //pershendetje si jeni
 </script>
 
 </body>
