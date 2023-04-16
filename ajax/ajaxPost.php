@@ -7,12 +7,15 @@ $post=$_POST;
 
 if($post['ajaxCall']=='createPost'){
 
-    $documentId = File::uploadFile($_FILES['file'], 1);
+    $profileId = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profileid');
+
+    $documentId = File::uploadFile($_FILES['file'], $profileId);
 
 
     // echo var_dump($post['postContent']).$_FILES['file']['name'];
 
-    $postId = Post::createPost($post['postContent'], 1, 4);
+    $privacyType = DB::convertValue('post_privacy_types', 'type_code', 'public', 'typeid');
+    $postId = Post::createPost($post['postContent'], $profileId, $privacyType);
     echo var_dump($postId);
 
 
