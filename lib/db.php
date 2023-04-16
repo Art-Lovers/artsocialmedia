@@ -11,6 +11,11 @@ $DATABASE_CONNECTION = mysqli_connect($host, $username, $password, $dbName)
 class DB{
     public static function select($table, $filter = array(), $params = array(), $fields = ''){
         global $DATABASE_CONNECTION;
+
+        foreach($filter as $key => $value){
+            $filter[$key] = mysqli_real_escape_string($DATABASE_CONNECTION, $value);
+        }
+
         if(empty($fields)){
             $res = mysqli_query($DATABASE_CONNECTION, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.columns WHERE TABLE_NAME = '". $table ."' and TABLE_SCHEMA = 'artsocialmedia'");
             while ($row=mysqli_fetch_assoc($res)){
@@ -80,14 +85,17 @@ class DB{
             $output[] = $row;
         }
         if(isset($params['se']) && $params['se'] === true){
-            if(isset($params['fetch']) && $params['fetch'] == 'value') return array_values($output[0]);
+            if(isset($params['fetch']) && $params['fetch'] == 'value'){
+                if(!empty($output[0])){
+                    return array_values($output[0])[0]; 
+                }
+                else return null;
+            }
             else{
-                try{
-                    return $output[0];
+                if(!empty($output[0])){
+                    return $output[0]; 
                 }
-                catch(Exception $e){
-                    return Null;
-                }
+                else return null;
             }
         }
         else{
@@ -104,6 +112,10 @@ class DB{
     public static function addEntity($table, $values){
         global $DATABASE_CONNECTION;
 
+        foreach($values as $key => $value){
+            $values[$key] = mysqli_real_escape_string($DATABASE_CONNECTION, $value);
+        }
+
         $fields = '`' . $table . '`(';
         $vals = '(';
         foreach($values as $key => $val){
@@ -117,5 +129,42 @@ class DB{
         $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
 
         return mysqli_insert_id($DATABASE_CONNECTION);
+    }
+
+    public static function convertValue($table, $fieldFrom, $value, $fieldTo, $filter = array()){
+        global $DATABASE_CONNECTION;
+
+        $value = mysqli_real_escape_string($DATABASE_CONNECTION, $value);
+
+        $filterSql = '';
+        if(!empty($filter)){
+            $filterSql .= "and ";
+            foreach($filter as $field => $val){
+                $filterSql .= $field;
+                if(is_array($val)){
+                    if($val[0] == 'BETWEEN'){
+                        $filterSql .= ' BETWEEN ' . $val[1] . ' AND ' . $val[2] . ',';
+                    }
+                    else{
+                        $filterSql .= ' '. $val[0] .' ' . $val[1];
+                    }
+                }
+                else{
+                    $filterSql .= " = '" . $val . "' AND";
+                }
+            }
+            $filterSql = trim($filterSql, 'AND');
+        }
+
+        $sqlCommand = "SELECT " . $fieldTo . " FROM " . $table . " WHERE " . $fieldFrom . " = '" . $value . "' " . $filterSql;
+        $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
+        $output = array();
+        while ($row=mysqli_fetch_assoc($sqlOut)){
+            $output[] = $row;
+        }
+        if(!empty($output[0])){
+            return array_values($output[0])[0]; 
+        }
+        else return null;
     }
 }
