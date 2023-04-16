@@ -16,6 +16,12 @@ if($post['ajaxCall']=='createPost'){
 
     $privacyType = DB::convertValue('post_privacy_types', 'type_code', 'public', 'typeid');
     $postId = Post::createPost($post['postContent'], $profileId, $privacyType);
+
+
+    $relationPost['postid']=$postId;
+    $relationPost['mediaid']=$documentId;
+    $relationId = DB::addEntity('post_media_relation', $relationPost);
+    
     echo var_dump($postId);
 
 
