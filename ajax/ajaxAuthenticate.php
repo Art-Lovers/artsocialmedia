@@ -42,7 +42,7 @@ else if($post['ajaxCall']=='login'){
 
     if(Login::authenticateUser($parseData['username'], $parseData['password'])){
         if(isset($parseData['rememberMe']) && $parseData['rememberMe'] == 'on'){
-            
+            Login::rememberUser();
         }
         echo 'Logged in!';
         return;
@@ -59,5 +59,6 @@ else if($post['ajaxCall']=='login'){
 else if($post['ajaxCall']=='logout'){
     
     unset($_SESSION['userId']);
+    DB::TERMINATE_ENTITY('user_login_tokens', array('token' => $_COOKIE['rmbme']));
 
 }

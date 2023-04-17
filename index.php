@@ -6,6 +6,8 @@ addServerImplementedPaths();
 
 $REQUESTED_PATH = trim($_SERVER["REQUEST_URI"], "/ \n\r\t\v\x00");
 
+Login::checkRememberCookie();
+
 if(in_array($REQUESTED_PATH, $SERVER_IMPLEMENTED_PATHS)){
     if(in_array($REQUESTED_PATH, array('login','signup','resetpassword'))){
         

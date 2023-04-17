@@ -158,4 +158,32 @@ class DB{
         }
         else return null;
     }
+
+    public static function TERMINATE_ENTITY($table, $filter){
+        global $DATABASE_CONNECTION;
+
+        $filterSql = '';
+        if(!empty($filter)){
+            foreach($filter as $field => $val){
+                $filterSql .= $field;
+                if(is_array($val)){
+                    if($val[0] == 'BETWEEN'){
+                        $filterSql .= ' BETWEEN ' . $val[1] . ' AND ' . $val[2] . ',';
+                    }
+                    else{
+                        $filterSql .= ' '. $val[0] .' ' . $val[1];
+                    }
+                }
+                else{
+                    $filterSql .= " = '" . $val . "' AND";
+                }
+            }
+            $filterSql = trim($filterSql, 'AND');
+        }
+
+        $sqlCommand = "DELETE FROM " . $table . " WHERE " . $filterSql;
+        $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
+
+        return mysqli_insert_id($DATABASE_CONNECTION);
+    }
 }
