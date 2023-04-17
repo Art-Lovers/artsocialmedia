@@ -41,6 +41,9 @@ else if($post['ajaxCall']=='login'){
     // return var_dump(Login::authenticateUser($parseData['username'], $parseData['password']));
 
     if(Login::authenticateUser($parseData['username'], $parseData['password'])){
+        if(isset($parseData['rememberMe']) && $parseData['rememberMe'] == 'on'){
+            
+        }
         echo 'Logged in!';
         return;
     }

@@ -80,14 +80,17 @@ class DB{
             $output[] = $row;
         }
         if(isset($params['se']) && $params['se'] === true){
-            if(isset($params['fetch']) && $params['fetch'] == 'value') return array_values($output[0]);
+            if(isset($params['fetch']) && $params['fetch'] == 'value'){
+                if(!empty($output[0])){
+                    return array_values($output[0])[0]; 
+                }
+                else return null;
+            }
             else{
-                try{
-                    return $output[0];
+                if(!empty($output[0])){
+                    return $output[0]; 
                 }
-                catch(Exception $e){
-                    return Null;
-                }
+                else return null;
             }
         }
         else{
