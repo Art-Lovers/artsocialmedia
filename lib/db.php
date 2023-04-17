@@ -118,4 +118,41 @@ class DB{
 
         return mysqli_insert_id($DATABASE_CONNECTION);
     }
+
+    public static function convertValue($table, $fieldFrom, $value, $fieldTo, $filter = array()){
+        global $DATABASE_CONNECTION;
+
+        $value = mysqli_real_escape_string($DATABASE_CONNECTION, $value);
+
+        $filterSql = '';
+        if(!empty($filter)){
+            $filterSql .= "and ";
+            foreach($filter as $field => $val){
+                $filterSql .= $field;
+                if(is_array($val)){
+                    if($val[0] == 'BETWEEN'){
+                        $filterSql .= ' BETWEEN ' . $val[1] . ' AND ' . $val[2] . ',';
+                    }
+                    else{
+                        $filterSql .= ' '. $val[0] .' ' . $val[1];
+                    }
+                }
+                else{
+                    $filterSql .= " = '" . $val . "' AND";
+                }
+            }
+            $filterSql = trim($filterSql, 'AND');
+        }
+
+        $sqlCommand = "SELECT " . $fieldTo . " FROM " . $table . " WHERE " . $fieldFrom . " = '" . $value . "' " . $filterSql;
+        $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
+        $output = array();
+        while ($row=mysqli_fetch_assoc($sqlOut)){
+            $output[] = $row;
+        }
+        if(!empty($output[0])){
+            return array_values($output[0])[0]; 
+        }
+        else return null;
+    }
 }
