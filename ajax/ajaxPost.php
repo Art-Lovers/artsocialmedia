@@ -24,5 +24,12 @@ if($post['ajaxCall']=='createPost'){
     
     echo var_dump($postId);
 
+return ;
+}
+if($post['ajaxCall']=='getPost'){
+   $postData=Post::getPostData();
+   
+    echo json_encode($postData);
 
+    return ;
 }

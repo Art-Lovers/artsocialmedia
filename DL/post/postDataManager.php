@@ -19,6 +19,22 @@ class Post{
 
     }
 
+    public static function getPostData(){
+        $postdata=DB::select('posts', array(), array(
+            'join' => array(array(
+                'table' => 'profiles',
+                'alias' => 'profiles',
+                'localKey' => 'profileid',
+                'foreignKey' => 'profileid',
+                'fields' => array(
+                    'full_name' => 'full_name',
+                    'display_name' => 'display_name'
+                )
+            ))
+        ));
+        return  $postdata;
+    }
+
 
 
 
