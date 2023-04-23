@@ -34,7 +34,18 @@ class DB{
         $joins = '';
         if(isset($params['join']) && !empty($params['join'])){
             foreach($params['join'] as $joinOp){
-                $joins .= 'INNER JOIN ' . trim($joinOp['table']) . ' ' . trim($joinOp['alias']) 
+                $joins .= ' INNER JOIN ' . trim($joinOp['table']) . ' ' . trim($joinOp['alias']) 
+                . ' ON main.' . trim($joinOp['localKey']) . ' = ' . trim($joinOp['alias']) . '.' . trim($joinOp['foreignKey']);
+
+                foreach($joinOp['fields'] as $joinFieldAlias => $joinField){
+                    $fields .= ',' . trim($joinOp['alias']) . '.' . $joinField . ' as ' . $joinFieldAlias;
+                }
+            }
+        }
+
+        if(isset($params['left join']) && !empty($params['left join'])){
+            foreach($params['left join'] as $joinOp){
+                $joins .= ' LEFT JOIN ' . trim($joinOp['table']) . ' ' . trim($joinOp['alias']) 
                 . ' ON main.' . trim($joinOp['localKey']) . ' = ' . trim($joinOp['alias']) . '.' . trim($joinOp['foreignKey']);
 
                 foreach($joinOp['fields'] as $joinFieldAlias => $joinField){
@@ -78,7 +89,7 @@ class DB{
         }
 
         $sqlCommand = "SELECT " . $fields . " from `" . $table . "` main " . $joins . ' ' . $filterSql . ' ' . $orderBy . ' ' . $groupBy;
-        // return $sqlCommand;
+        // echo $sqlCommand;
         $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
         $output = array();
         while ($row=mysqli_fetch_assoc($sqlOut)){

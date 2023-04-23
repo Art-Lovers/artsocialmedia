@@ -30,7 +30,15 @@ class Post{
                     'full_name' => 'full_name',
                     'display_name' => 'display_name'
                 )
-            ))
+                )), 'orderBy' => array('postid' => 'DESC'), 'left join' => array(array(
+                    'table' => 'post_media_relation',
+                    'alias' => 'post_media_relation',
+                    'localKey' => 'postid',
+                    'foreignKey' => 'postid',
+                    'fields' => array(
+                        'mediaid' => 'mediaid'
+                    )
+                    ))
         ));
         return  $postdata;
     }

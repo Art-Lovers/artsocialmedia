@@ -9,8 +9,10 @@ if($post['ajaxCall']=='createPost'){
 
     $profileId = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profileid');
 
-    $documentId = File::uploadFile($_FILES['file'], $profileId);
-
+    if(isset($_FILES['file'])){
+        $documentId = File::uploadFile($_FILES['file'], $profileId);
+        $relationPost['mediaid']=$documentId;
+    }
 
     // echo var_dump($post['postContent']).$_FILES['file']['name'];
 
@@ -19,12 +21,11 @@ if($post['ajaxCall']=='createPost'){
 
 
     $relationPost['postid']=$postId;
-    $relationPost['mediaid']=$documentId;
     $relationId = DB::addEntity('post_media_relation', $relationPost);
     
     echo var_dump($postId);
 
-return ;
+    return ;
 }
 if($post['ajaxCall']=='getPost'){
    $postData=Post::getPostData();
