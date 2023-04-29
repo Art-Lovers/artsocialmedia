@@ -15,4 +15,8 @@ function addServerImplementedPaths(){
 
     //Post url
     array_push($SERVER_IMPLEMENTED_PATHS, 'post');
+    
+    //Profile url
+    array_push($SERVER_IMPLEMENTED_PATHS, 'profile/*');
+    
 }

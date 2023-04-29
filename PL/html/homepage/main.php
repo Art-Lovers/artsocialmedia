@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    <button class="profile">See your profile</button>
 <button id="logout">Log Out</button>
 
     <div class="container">

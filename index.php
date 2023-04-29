@@ -6,7 +6,7 @@ addServerImplementedPaths();
 
 $REQUESTED_PATH = trim($_SERVER["REQUEST_URI"], "/ \n\r\t\v\x00");
 
-if(in_array($REQUESTED_PATH, $SERVER_IMPLEMENTED_PATHS)){
+if(in_array($REQUESTED_PATH, $SERVER_IMPLEMENTED_PATHS) || (in_array(explode('/', $REQUESTED_PATH)[0].'/*', $SERVER_IMPLEMENTED_PATHS))){
     if(in_array($REQUESTED_PATH, array('login','signup','resetpassword'))){
         
         if(isset($_SESSION['userId'])){
