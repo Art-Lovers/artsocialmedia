@@ -5,83 +5,82 @@ $username = 'root';
 $password = '';
 $dbName = 'artsocialmedia';
 
-$DATABASE_CONNECTION = mysqli_connect($host, $username, $password, $dbName) 
-                or die("Cannot connect to DB");
+$DATABASE_CONNECTION = mysqli_connect($host, $username, $password, $dbName)
+    or die("Cannot connect to DB");
 
-class DB{
-    public static function select($table, $filter = array(), $params = array(), $fields = ''){
+class DB
+{
+    public static function select($table, $filter = array(), $params = array(), $fields = '')
+    {
         global $DATABASE_CONNECTION;
 
-        foreach($filter as $key => $value){
+        foreach ($filter as $key => $value) {
             $filter[$key] = mysqli_real_escape_string($DATABASE_CONNECTION, $value);
         }
 
-        if(empty($fields)){
-            $res = mysqli_query($DATABASE_CONNECTION, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.columns WHERE TABLE_NAME = '". $table ."' and TABLE_SCHEMA = 'artsocialmedia'");
-            while ($row=mysqli_fetch_assoc($res)){
+        if (empty($fields)) {
+            $res = mysqli_query($DATABASE_CONNECTION, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.columns WHERE TABLE_NAME = '" . $table . "' and TABLE_SCHEMA = 'artsocialmedia'");
+            while ($row = mysqli_fetch_assoc($res)) {
                 $vals[] = $row;
             }
-            foreach($vals as $val){
+            foreach ($vals as $val) {
                 $fields .= 'main.' . $val['COLUMN_NAME'] . ' as ' . $val['COLUMN_NAME'] . ',';
             }
             $fields = trim($fields, ',');
-        }
-        else{
+        } else {
             $fields = trim($fields);
         }
-        
+
 
         $joins = '';
-        if(isset($params['join']) && !empty($params['join'])){
-            foreach($params['join'] as $joinOp){
-                $joins .= ' INNER JOIN ' . trim($joinOp['table']) . ' ' . trim($joinOp['alias']) 
-                . ' ON main.' . trim($joinOp['localKey']) . ' = ' . trim($joinOp['alias']) . '.' . trim($joinOp['foreignKey']);
+        if (isset($params['join']) && !empty($params['join'])) {
+            foreach ($params['join'] as $joinOp) {
+                $joins .= ' INNER JOIN ' . trim($joinOp['table']) . ' ' . trim($joinOp['alias'])
+                    . ' ON main.' . trim($joinOp['localKey']) . ' = ' . trim($joinOp['alias']) . '.' . trim($joinOp['foreignKey']);
 
-                foreach($joinOp['fields'] as $joinFieldAlias => $joinField){
+                foreach ($joinOp['fields'] as $joinFieldAlias => $joinField) {
                     $fields .= ',' . trim($joinOp['alias']) . '.' . $joinField . ' as ' . $joinFieldAlias;
                 }
             }
         }
 
-        if(isset($params['left join']) && !empty($params['left join'])){
-            foreach($params['left join'] as $joinOp){
-                $joins .= ' LEFT JOIN ' . trim($joinOp['table']) . ' ' . trim($joinOp['alias']) 
-                . ' ON main.' . trim($joinOp['localKey']) . ' = ' . trim($joinOp['alias']) . '.' . trim($joinOp['foreignKey']);
+        if (isset($params['left join']) && !empty($params['left join'])) {
+            foreach ($params['left join'] as $joinOp) {
+                $joins .= ' LEFT JOIN ' . trim($joinOp['table']) . ' ' . trim($joinOp['alias'])
+                    . ' ON main.' . trim($joinOp['localKey']) . ' = ' . trim($joinOp['alias']) . '.' . trim($joinOp['foreignKey']);
 
-                foreach($joinOp['fields'] as $joinFieldAlias => $joinField){
+                foreach ($joinOp['fields'] as $joinFieldAlias => $joinField) {
                     $fields .= ',' . trim($joinOp['alias']) . '.' . $joinField . ' as ' . $joinFieldAlias;
                 }
             }
         }
 
         $orderBy = '';
-        if(isset($params['orderBy']) && !empty($params['orderBy'])){
+        if (isset($params['orderBy']) && !empty($params['orderBy'])) {
             $orderBy .= 'ORDER BY ';
-            foreach($params['orderBy'] as $field => $order){
+            foreach ($params['orderBy'] as $field => $order) {
                 $orderBy .= $field . ' ' . $order . ',';
             }
             $orderBy = trim($orderBy, ',');
         }
 
         $groupBy = '';
-        if(isset($params['groupBy']) && !empty($params['groupBy'])){
+        if (isset($params['groupBy']) && !empty($params['groupBy'])) {
             $groupBy .= 'GROUP BY ' . $params['groupBy'];
         }
 
         $filterSql = '';
-        if(!empty($filter)){
+        if (!empty($filter)) {
             $filterSql .= 'WHERE ';
-            foreach($filter as $field => $val){
+            foreach ($filter as $field => $val) {
                 $filterSql .= $field;
-                if(is_array($val)){
-                    if($val[0] == 'BETWEEN'){
+                if (is_array($val)) {
+                    if ($val[0] == 'BETWEEN') {
                         $filterSql .= ' BETWEEN ' . $val[1] . ' AND ' . $val[2] . ',';
+                    } else {
+                        $filterSql .= ' ' . $val[0] . ' ' . $val[1];
                     }
-                    else{
-                        $filterSql .= ' '. $val[0] .' ' . $val[1];
-                    }
-                }
-                else{
+                } else {
                     $filterSql .= " = '" . $val . "' AND";
                 }
             }
@@ -92,44 +91,43 @@ class DB{
         // echo $sqlCommand;
         $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
         $output = array();
-        while ($row=mysqli_fetch_assoc($sqlOut)){
+        while ($row = mysqli_fetch_assoc($sqlOut)) {
             $output[] = $row;
         }
-        if(isset($params['se']) && $params['se'] === true){
-            if(isset($params['fetch']) && $params['fetch'] == 'value'){
-                if(!empty($output[0])){
-                    return array_values($output[0])[0]; 
+        if (isset($params['se']) && $params['se'] === true) {
+            if (isset($params['fetch']) && $params['fetch'] == 'value') {
+                if (!empty($output[0])) {
+                    return array_values($output[0])[0];
+                } else
+                    return null;
+            } else {
+                if (!empty($output[0])) {
+                    return $output[0];
                 }
                 else return null;
             }
-            else{
-                if(!empty($output[0])){
-                    return $output[0]; 
-                }
-                else return null;
-            }
-        }
-        else{
-            if(isset($params['fetch']) && $params['fetch'] == 'array'){
-                foreach($output as $outs){
+        } else {
+            if (isset($params['fetch']) && $params['fetch'] == 'array') {
+                foreach ($output as $outs) {
                     $outputArray[] = array_values($outs);
                 }
                 return $outputArray;
-            }
-            else return $output;
+            } else
+                return $output;
         }
     }
 
-    public static function addEntity($table, $values){
+    public static function addEntity($table, $values)
+    {
         global $DATABASE_CONNECTION;
 
-        foreach($values as $key => $value){
+        foreach ($values as $key => $value) {
             $values[$key] = mysqli_real_escape_string($DATABASE_CONNECTION, $value);
         }
 
         $fields = '`' . $table . '`(';
         $vals = '(';
-        foreach($values as $key => $val){
+        foreach ($values as $key => $val) {
             $vals .= "'" . $val . "',";
             $fields .= "`" . $key . "`,";
         }
@@ -177,5 +175,33 @@ class DB{
             return array_values($output[0])[0]; 
         }
         else return null;
+    }
+
+    public static function TERMINATE_ENTITY($table, $filter){
+        global $DATABASE_CONNECTION;
+
+        $filterSql = '';
+        if(!empty($filter)){
+            foreach($filter as $field => $val){
+                $filterSql .= $field;
+                if(is_array($val)){
+                    if($val[0] == 'BETWEEN'){
+                        $filterSql .= ' BETWEEN ' . $val[1] . ' AND ' . $val[2] . ',';
+                    }
+                    else{
+                        $filterSql .= ' '. $val[0] .' ' . $val[1];
+                    }
+                }
+                else{
+                    $filterSql .= " = '" . $val . "' AND";
+                }
+            }
+            $filterSql = trim($filterSql, 'AND');
+        }
+
+        $sqlCommand = "DELETE FROM " . $table . " WHERE " . $filterSql;
+        $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
+
+        return mysqli_insert_id($DATABASE_CONNECTION);
     }
 }

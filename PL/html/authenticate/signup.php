@@ -23,7 +23,7 @@
             </div>
             <div class="input_box">
                 <label for="">Username</label>
-                <input type="text" name="username" class="input user1" placeholder="Enter your username" required>
+                <input type="text" name="username" class="input user1" placeholder="Enter your username" minlength="5" required>
                 <label class="error" id='userErr'></label>
             </div>
             <div class="column">
