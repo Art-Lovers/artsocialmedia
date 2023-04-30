@@ -12,11 +12,11 @@
 
     <div class="container">
         <div class="row">
-            <div class="postclass">
-                <div class="col-8">
+            <div class="col-2">
 
-                </div>
-                <div class="col-2 ml-3">
+            </div>
+            <div class="col ml-3">
+                <div class="postclass">
                     <form id="postForm">
                         <br>
 
@@ -25,12 +25,12 @@
                         <!-- <button id="">Add photo/video</button><br> -->
                         <button id="createPostButton">Create post</button>
                     </form>
-                </div>
+                    <div id="anaId">
 
-                <div id="anaId">
-
+                    </div>
                 </div>
             </div>
+
             <div class="col-2">
 
             </div>
