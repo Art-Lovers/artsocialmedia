@@ -1,8 +1,8 @@
 <?php
 
-$host = 'localhost:23306';
+$host = '132.145.243.252:23306';
 $username = 'root';
-$password = '';
+$password = 'rootpassword';
 $dbName = 'artsocialmedia';
 
 $DATABASE_CONNECTION = mysqli_connect($host, $username, $password, $dbName)
