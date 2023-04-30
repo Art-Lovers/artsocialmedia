@@ -17,11 +17,11 @@
             </div>
             <div class="col ml-3">
                 <div class="postclass">
-                    <form id="postForm">
+                    <form id="postForm" enctype="multipart/form-data">
                         <br>
 
                         <textarea id="postContent"></textarea><br>
-                        <input type="file" name="fileToUpload" id="attachMediaPost">
+                        <input type="file" name="fileToUpload" id="attachMediaPost" multiple>
                         <!-- <button id="">Add photo/video</button><br> -->
                         <button id="createPostButton">Create post</button>
                     </form>

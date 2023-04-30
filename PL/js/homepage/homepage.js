@@ -9,7 +9,12 @@ $(document).ready(function () {
         var fileData = new FormData();
         fileData.append('ajaxCall', "createPost");
         fileData.append('postContent', $('#postContent').val());
-        fileData.append('file', $('#attachMediaPost')[0].files[0]);
+
+        $.each($("input[type=file]"), function (i, obj) {
+            $.each(obj.files, function (i, file) {
+                fileData.append('file[' + i + ']', 'file');
+            })
+        });
 
         $.ajax({
             url: 'ajax/ajaxPost.php',
@@ -29,24 +34,24 @@ $(document).ready(function () {
 
     });
 
-    $.post("ajax/ajaxPost.php",{ajaxCall: "getPost"},function(data,status){
+    $.post("ajax/ajaxPost.php", { ajaxCall: "getPost" }, function (data, status) {
         $('#anaId').text('');
-        parseData=jQuery.parseJSON(data);
+        parseData = jQuery.parseJSON(data);
 
-        for(let i = 0; i < parseData.length; i++){
-            imgData = (parseData[i]['mediaid'] !== null)? '<img src="lib/serveImg.php?img='+ parseData[i]['mediaid'] +'">':'';
+        for (let i = 0; i < parseData.length; i++) {
+            imgData = (parseData[i]['mediaid'] !== null) ? '<img src="lib/serveImg.php?img=' + parseData[i]['mediaid'] + '">' : '';
 
-            var htmlContent =   '<div class="postContent mb-2">';
+            var htmlContent = '<div class="postContent mb-2">';
 
-            htmlContent +=          '<label>' + parseData[i]['full_name'] + '</label><br>';
-            htmlContent +=          '<label>' + parseData[i]['post_content'] + '</label><br>';
-            htmlContent +=          imgData;
-            htmlContent +=          '<br><button> Like </button>';
-            htmlContent +=      '</div>';
+            htmlContent += '<label>' + parseData[i]['full_name'] + '</label><br>';
+            htmlContent += '<label>' + parseData[i]['post_content'] + '</label><br>';
+            htmlContent += imgData;
+            htmlContent += '<br><button> Like </button>';
+            htmlContent += '</div>';
 
             $('#anaId').append(htmlContent);
         }
-        
+
 
     });
 
