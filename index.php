@@ -36,6 +36,6 @@ if (in_array($REQUESTED_PATH, $SERVER_IMPLEMENTED_PATHS)) {
     // )));
     // $param['se'] = true;
     // echo var_dump(DB::select('users', array('main.username' => 'asdfdsaf'), array('se' => true, 'fetch' => 'value'), 'main.password as password'));
-    echo var_dump(DB::updateEntity('posts', array('main.postid' => 8), array('post_content' => 'Chipsy')));
+    // echo var_dump(DB::updateEntity('posts', array('main.postid' => 8), array('post_content' => 'Chipsy')));
     echo '404 :(';
 }
