@@ -145,7 +145,7 @@ class DB
 
         $value = mysqli_real_escape_string($DATABASE_CONNECTION, $value);
 
-        $filterSql = 'WHERE ';
+        $filterSql = '';
         if (!empty($filter)) {
             foreach ($filter as $field => $val) {
                 $filterSql .= $field;
@@ -158,9 +158,10 @@ class DB
                 } else {
                     $filterSql .= " = '" . $val . "' AND ";
                 }
+                $filterSql = trim($filterSql, 'AND');
             }
         }
-        $filterSql .= "deleted = '0'";
+        $filterSql .= "AND deleted = '0'";
 
         $sqlCommand = "SELECT " . $fieldTo . " FROM " . $table . " WHERE " . $fieldFrom . " = '" . $value . "' " . $filterSql;
         $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);

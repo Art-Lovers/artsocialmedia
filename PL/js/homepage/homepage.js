@@ -12,7 +12,7 @@ $(document).ready(function () {
 
         $.each($("input[type=file]"), function (i, obj) {
             $.each(obj.files, function (i, file) {
-                fileData.append('file[' + i + ']', 'file');
+                fileData.append('file[' + i + ']', file);
             })
         });
 
@@ -23,7 +23,7 @@ $(document).ready(function () {
             processData: false,  // tell jQuery not to process the data
             contentType: false,  // tell jQuery not to set contentType
             success: function (data) {
-                location.reload();
+                //location.reload();    
             }
         });
 
