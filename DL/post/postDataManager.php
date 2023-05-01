@@ -57,21 +57,21 @@ class Post
         return $postdata;
     }
 
-    public static function updateLike($postID){
+    public static function updateLike($postID)
+    {
 
-        $profileId = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profiled');
+        $profileID = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profiled');
         $checkLike = DB::select('likes', array('postid' => $postID, 'profileid' => $profileID), array());
-        
-        if(empty($checkLike)){
-            $likeValues['postId'] = $postid;
-            $likeValues['profileid'] = $profileID;            
+
+        if (empty($checkLike)) {
+            $likeValues['postId'] = $postID;
+            $likeValues['profileid'] = $profileID;
             DB::addEntity('likes', $likeValues);
-        }
-        else{
+        } else {
             DB::TERMINATE_ENTITY('likes', array('postid' => $postID, 'profileid' => $profileID));
         }
 
-        return DB::select('likes', array('postid' => $postID), array('groupBy'=> 'postid', 'se' => true, 'fetch' => 'value'), 'count(*)');
+        return DB::select('likes', array('postid' => $postID), array('groupBy' => 'postid', 'se' => true, 'fetch' => 'value'), 'count(*)');
     }
 
 
