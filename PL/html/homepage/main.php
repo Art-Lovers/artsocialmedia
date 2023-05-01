@@ -27,16 +27,16 @@
     </nav>
 
 
-    <div class="container">
+    <div class="">
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
                 <!-- BUTONAT 
                     <button class="btn btn-primary mb-2"><i class="bi bi-house-door-fill"></i>Home</button><br>
                 <button class="btn btn-primary mb-2"><i class="bi bi-people-fill"></i>Friends</button><br>
                 <button id="logout" class="btn btn-primary mb-2"><i class="bi bi-box-arrow-right"></i></i>Log
                     Out</button> -->
             </div>
-            <div class="col-6" style="background-color:black">
+            <div class="col-8" style="background-color:black">
 
                 <!-- <div class="input-group"> SEARCH BOX
                     <div class="form-outline">
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="col-3">
+            <div class="col-2">
                 <!-- <button class="btn btn-primary mb-2"><i class="bi bi-bell-fill"></i>Notifications</button><br>
                 <button class="btn btn-primary mb-2"><i class="bi bi-person-fill"></i>Profile</button><br>
                 <button class="btn btn-primary mb-2"><i class="bi bi-chat-square-dots"></i>Inbox</button><br> -->

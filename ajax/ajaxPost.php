@@ -47,7 +47,9 @@ if ($post['ajaxCall'] == 'getPost') {
 
 if ($post['ajaxCall'] == 'countLike') {
 
-    echo Post::updateLike(43);
+    $likeCount = Post::updateLike(43);
+
+    echo (empty($likeCount)) ? 0 : $likeCount;
 
     return;
 }

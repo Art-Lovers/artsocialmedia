@@ -190,10 +190,10 @@ class DB
                         $filterSql .= ' ' . $val[0] . ' ' . $val[1];
                     }
                 } else {
-                    $filterSql .= " = '" . $val . "' AND";
+                    $filterSql .= " = '" . $val . "' AND ";
                 }
             }
-            $filterSql = trim($filterSql, 'AND');
+            $filterSql = trim($filterSql, 'AND ');
         }
 
         $sqlCommand = "DELETE FROM " . $table . " WHERE " . $filterSql;
