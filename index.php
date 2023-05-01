@@ -1,32 +1,30 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/lib/plib.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/lib/plib.php';
 
 addServerImplementedPaths();
 
 $REQUESTED_PATH = trim($_SERVER["REQUEST_URI"], "/ \n\r\t\v\x00");
 
-if(in_array($REQUESTED_PATH, $SERVER_IMPLEMENTED_PATHS)){
-    if(in_array($REQUESTED_PATH, array('login','signup','resetpassword'))){
-        
-        if(isset($_SESSION['userId'])){
+Login::checkRememberCookie();
+
+if (in_array($REQUESTED_PATH, $SERVER_IMPLEMENTED_PATHS)) {
+    if (in_array($REQUESTED_PATH, array('login', 'signup', 'resetpassword'))) {
+
+        if (isset($_SESSION['userId'])) {
             header("Location: http://localhost/homepage");
+        } else {
+            include_once $_SERVER['DOCUMENT_ROOT'] . '/PL/html/authenticate/' . $REQUESTED_PATH . '.php';
         }
-        else{
-            include_once $_SERVER['DOCUMENT_ROOT'].'/PL/html/authenticate/'.$REQUESTED_PATH.'.php';
-        }
-    }
-    else{
+    } else {
         echo var_dump($_SESSION['userId']);
-        if(isset($_SESSION['userId'])){
-            include_once $_SERVER['DOCUMENT_ROOT'].'/PL/html/'.explode('/', $REQUESTED_PATH)[0].'/main.php';
-        }
-        else{
+        if (isset($_SESSION['userId'])) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . '/PL/html/' . explode('/', $REQUESTED_PATH)[0] . '/main.php';
+        } else {
             header("Location: http://localhost/login");
         }
     }
-}
-else{
+} else {
     // $param = array('join' => array(array(
     //     'table' => 'user_login_tokens',
     //     'alias' => 'ult',
@@ -38,5 +36,6 @@ else{
     // )));
     // $param['se'] = true;
     // echo var_dump(DB::select('users', array('main.username' => 'asdfdsaf'), array('se' => true, 'fetch' => 'value'), 'main.password as password'));
+    // echo var_dump(DB::updateEntity('posts', array('main.postid' => 8), array('post_content' => 'Chipsy')));
     echo '404 :(';
 }

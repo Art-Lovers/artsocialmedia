@@ -1,15 +1,14 @@
-<?php 
+<?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/lib/plib.php';
-$post=$_POST;
+include_once $_SERVER['DOCUMENT_ROOT'] . '/lib/plib.php';
+$post = $_POST;
 
 
 
-if($post['ajaxCall']=='createPost'){
+if ($post['ajaxCall'] == 'createPost') {
 
     $profileId = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profileid');
 
-    $documentId = File::uploadFile($_FILES['file'], $profileId);
 
 
     // echo var_dump($post['postContent']).$_FILES['file']['name'];
@@ -17,19 +16,38 @@ if($post['ajaxCall']=='createPost'){
     $privacyType = DB::convertValue('post_privacy_types', 'type_code', 'public', 'typeid');
     $postId = Post::createPost($post['postContent'], $profileId, $privacyType);
 
+    if (isset($_FILES['file'])) {
 
-    $relationPost['postid']=$postId;
-    $relationPost['mediaid']=$documentId;
-    $relationId = DB::addEntity('post_media_relation', $relationPost);
-    
+        foreach ($_FILES['file'] as $key => $file) {
+            foreach ($file as $i => $data) {
+                $fileData[$i][$key] = $data;
+            }
+        }
+
+        foreach ($fileData as $f) {
+            $documentId = File::uploadFile($f, $profileId);
+            $relationPost['mediaid'] = $documentId;
+            $relationPost['postid'] = $postId;
+            $relationId = DB::addEntity('post_media_relation', $relationPost);
+        }
+    }
+
     echo var_dump($postId);
 
-return ;
+
+    return;
 }
-if($post['ajaxCall']=='getPost'){
-   $postData=Post::getPostData();
-   
+if ($post['ajaxCall'] == 'getPost') {
+    $postData = Post::getPostData();
+
     echo json_encode($postData);
 
-    return ;
+    return;
+}
+
+if ($post['ajaxCall'] == 'countLike') {
+
+    echo Post::updateLike(43);
+
+    return;
 }

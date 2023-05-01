@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var postData = new FormData();
     postData.append('ajaxCall', "getPost");
-   
+
 
     $.ajax({
         url: 'ajax/ajaxPost.php',
@@ -13,8 +13,12 @@ $(document).ready(function () {
             $("anaId").text(String(data));
         }
     });
-    
-    
+
+
+
+
+
+
 
     $("#postForm").on("submit", function () {
 
@@ -26,7 +30,12 @@ $(document).ready(function () {
         var fileData = new FormData();
         fileData.append('ajaxCall', "createPost");
         fileData.append('postContent', $('#postContent').val());
-        fileData.append('file', $('#attachMediaPost')[0].files[0]);
+
+        $.each($("input[type=file]"), function (i, obj) {
+            $.each(obj.files, function (i, file) {
+                fileData.append('file[' + i + ']', file);
+            })
+        });
 
         $.ajax({
             url: 'ajax/ajaxPost.php',
@@ -35,8 +44,7 @@ $(document).ready(function () {
             processData: false,  // tell jQuery not to process the data
             contentType: false,  // tell jQuery not to set contentType
             success: function (data) {
-                console.log(data);
-                alert(data);
+                location.reload();
             }
         });
 
@@ -47,42 +55,48 @@ $(document).ready(function () {
 
     });
 
-    $.post("ajax/ajaxPost.php",{ajaxCall: "getPost"},function(data,status){
-       
-        parseData=jQuery.parseJSON(data);
+    $.post("ajax/ajaxPost.php", { ajaxCall: "getPost" }, function (data, status) {
+        $('#anaId').text('');
+        parseData = jQuery.parseJSON(data);
 
-        for(let i = 0; i <= parseData.length; i++){
-            var htmlContent =   '<div class="postContent mb-2" id="'+i+'">';
+        for (let i = 0; i < parseData.length; i++) {
+            imgData = (parseData[i]['mediaid'] !== null) ? '<img src="lib/serveImg.php?img=' + parseData[i]['mediaid'] + '">' : '';
 
-            htmlContent +=          '<label>' + parseData[i]['full_name'] + '</label> <button class="editPost">Edit</button> <button class="deletePost" onclick="deletePosts(i)">Delete</button><br>';
-            htmlContent +=          '<label id="content'+i+'">' + parseData[i]['post_content'] + '</label><br>';
-            htmlContent +=          '<img>' +parseData[i]['']+  '</img>';
-            htmlContent +=          '<br><button> Like </button> <button>Comments</button>';
-            htmlContent +=      '</div>';
+            for (let i = 0; i <= parseData.length; i++) {
+                var htmlContent = '<div class="postContent mb-2">';
 
-            $('#anaId').append(htmlContent);
+                htmlContent += '<label>' + parseData[i]['full_name'] + '</label><br>';
+                htmlContent += '<label>' + parseData[i]['post_content'] + '</label><br>';
+                htmlContent += imgData;
+                htmlContent += '<br><button id="likeButton"> Like </button>';
+                htmlContent += '<button> Comment </button>';
+                htmlContent += '<br>'
+                htmlContent += '</div>';
 
-        }     
 
-    });
+                $('#anaId').append(htmlContent);
 
+            }
 
-    $(".editPost").on("click", function(id){
-        var txt=document.getElementById("content"+id).textContent;
-        var editContent='<textarea id="txtArea">'+txt+'</textarea><br><button class="saveChanges">Ruaj</button><button>Anullo</button>';
-        $('"#"+id').append(editContent);
-
-        $(".saveChanges").on("click", function(){
-            document.getElementById("content"+id).textContent=document.getElementsById("txtArea").value;
         });
 
 
-          });
-          
-        function deletePosts(id) {
-        alert( "are you sure you want to delete?" );
+    $(".editPost").on("click", function (id) {
+        var txt = document.getElementById("content" + id).textContent;
+        var editContent = '<textarea id="txtArea">' + txt + '</textarea><br><button class="saveChanges">Ruaj</button><button>Anullo</button>';
+        $('"#"+id').append(editContent);
+
+        $(".saveChanges").on("click", function () {
+            document.getElementById("content" + id).textContent = document.getElementsById("txtArea").value;
+        });
+
+
+    });
+
+    function deletePosts(id) {
+        alert("are you sure you want to delete?");
         $('"#"+id').remove();
-      }
+    }
 
 
 
@@ -99,34 +113,38 @@ $(document).ready(function () {
  */
 
 
-      /*
-      
+/*
+ 
 $(".deletePost").on ("click", function () {
-        alert( "are you sure you want to delete?" );
-        $(this.id).remove();
-    });
+  alert( "are you sure you want to delete?" );
+  $(this.id).remove();
+});
 
-      function fshi(){
-        alert("The button was clicked.");
-        $(".a").remove();
-      }
+function fshi(){
+  alert("The button was clicked.");
+  $(".a").remove();
+}
  
 
-    $(".deletePost").on ("click", function () {
-        $("postContent mb-2").remove();
-      alert("The button was clicked.");
-    });
-    */
-   
 
-  /*    
-    function deletePost(postId){
-        //$('#anaId').removeChild(htmlContent);
-    ///htmlContent.remove();
+});
 
-var posts=document.getElementsByClassName("postContent mb-2");
-for (var i=0;i<posts.length;i++)
-{
-    document.getElementsByClassName("postContent mb-2")[i].remove();
-    }}*/
+//likecount
+$("#likebutton").on("click", function () {
+
+  var fileData = new FormData();
+  fileData.append('ajaxCall', "countLike");
+
+  $.ajax({
+      url: 'ajax/ajaxPost.php',
+      type: 'POST',
+      data: fileData,
+      processData: false,  // tell jQuery not to process the data
+      contentType: false,  // tell jQuery not to set contentType
+      success: function (data) {
+          //location.reload();    
+      }
+  });
+
+});
 });
