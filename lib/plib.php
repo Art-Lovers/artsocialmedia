@@ -4,6 +4,7 @@ session_start();
 include_once $_SERVER['DOCUMENT_ROOT'].'/lib/urls.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/lib/classes.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/lib/func.php';
 
 // Vars Area
 $REQUESTED_PATH = null;
