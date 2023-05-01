@@ -46,13 +46,37 @@ $(document).ready(function () {
             htmlContent += '<label>' + parseData[i]['full_name'] + '</label><br>';
             htmlContent += '<label>' + parseData[i]['post_content'] + '</label><br>';
             htmlContent += imgData;
-            htmlContent += '<br><button> Like </button>';
+            htmlContent += '<br><button id="likeButton"> Like </button>';
+            htmlContent += '<button> Comment </button>';
+            htmlContent += '<br>'
             htmlContent += '</div>';
 
             $('#anaId').append(htmlContent);
         }
 
 
+
     });
+
+    //likecount
+    $("#likebutton").on("click", function () {
+
+        var fileData = new FormData();
+        fileData.append('ajaxCall', "countLike");
+
+        $.ajax({
+            url: 'ajax/ajaxPost.php',
+            type: 'POST',
+            data: fileData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,  // tell jQuery not to set contentType
+            success: function (data) {
+                //location.reload();    
+            }
+        });
+
+    });
+
+
 
 });
