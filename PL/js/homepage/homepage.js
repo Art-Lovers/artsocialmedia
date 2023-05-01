@@ -46,7 +46,7 @@ $(document).ready(function () {
             htmlContent += '<label>' + parseData[i]['full_name'] + '</label><br>';
             htmlContent += '<label>' + parseData[i]['post_content'] + '</label><br>';
             htmlContent += imgData;
-            htmlContent += '<br><button id="likeButton"> Like </button>';
+            htmlContent += '<br><button class="likeButton"> Like </button>';
             htmlContent += '<button> Comment </button>';
             htmlContent += '<br>'
             htmlContent += '</div>';
@@ -59,8 +59,8 @@ $(document).ready(function () {
     });
 
     //likecount
-    $("#likebutton").on("click", function () {
-
+    $("#anaId").on("click", ".likeButton", function () {
+        console.log($(this));
         var fileData = new FormData();
         fileData.append('ajaxCall', "countLike");
 

@@ -60,11 +60,11 @@ class Post
     public static function updateLike($postID)
     {
 
-        $profileID = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profiled');
+        $profileID = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profileid');
         $checkLike = DB::select('likes', array('postid' => $postID, 'profileid' => $profileID), array());
 
         if (empty($checkLike)) {
-            $likeValues['postId'] = $postID;
+            $likeValues['postid'] = $postID;
             $likeValues['profileid'] = $profileID;
             DB::addEntity('likes', $likeValues);
         } else {
