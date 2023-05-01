@@ -1,9 +1,10 @@
-.postForm #postForm{
-  
+.postForm #postForm {
+
     align-items: center;
     text-align: center;
 }
-.postContent{
-    border:1px solid blue;
-    
+
+.postContent {
+    border: 1px solid blue;
+
 }

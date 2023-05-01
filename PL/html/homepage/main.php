@@ -5,25 +5,38 @@
         href="PL/css/homepage/homepageStyle.css?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 </head>
 
 <body>
-    <button id="logout">Log Out</button>
 
     <div class="container">
         <div class="row">
-            <div class="col-2">
-
+            <div class="col-3 d-grid gap-2 mx-auto">
+                <button class="btn btn-primary mb-2"><i class="bi bi-house-door-fill"></i>Home</button><br>
+                <button class="btn btn-primary mb-2"><i class="bi bi-person-fill"></i>Profile</button><br>
+                <button class="btn btn-primary mb-2"><i class="bi bi-people-fill"></i>Friends</button><br>
+                <!-- <div class="input-group">
+        <div class="form-outline">
+            <input type="search" id="form1" class="form-control" />
+            <label class="form-label" for="form1">Search</label>
+        </div>
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div> -->
+                <button id="logout" class="btn btn-primary mb-2"><i class="bi bi-box-arrow-right"></i></i>Log
+                    Out</button>
             </div>
-            <div class="col ml-3">
+            <div class="col-6">
                 <div class="postclass">
                     <form id="postForm" enctype="multipart/form-data">
                         <br>
 
-                        <textarea id="postContent"></textarea><br>
+                        <textarea id="postContent" class="form-control"></textarea><br>
                         <input type="file" name="fileToUpload" id="attachMediaPost" multiple>
                         <!-- <button id="">Add photo/video</button><br> -->
-                        <button id="createPostButton">Create post</button>
+                        <button class="btn btn-success" id="createPostButton">Create post</button>
                     </form>
                     <div id="anaId">
 
@@ -31,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="col-2">
+            <div class="col-3">
 
             </div>
         </div>
