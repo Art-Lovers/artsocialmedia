@@ -10,28 +10,44 @@
 
 <body>
 
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <button class="btn btn-primary mb-2"><i class="bi bi-house-door-fill"></i>Home</button><br>
+        <button class="btn btn-primary mb-2"><i class="bi bi-people-fill"></i>Friends</button><br>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="searchButton btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+        <button class="btn btn-primary mb-2"><i class="bi bi-bell-fill"></i>Notifications</button><br>
+        <button class="btn btn-primary mb-2"><i class="bi bi-chat-square-dots"></i></button><br>
+        <button class="btn btn-primary mb-2"><i class="bi bi-person-fill"></i>Profile</button><br>
+        <button id="logout" class="btn btn-primary mb-2"><i class="bi bi-box-arrow-right"></i></i>Log
+            Out</button>
+    </nav>
+
+
     <div class="container">
         <div class="row">
             <div class="col-3 gap-2">
-                <button class="btn btn-primary mb-2"><i class="bi bi-house-door-fill"></i>Home</button><br>
+                <!-- BUTONAT 
+                    <button class="btn btn-primary mb-2"><i class="bi bi-house-door-fill"></i>Home</button><br>
                 <button class="btn btn-primary mb-2"><i class="bi bi-people-fill"></i>Friends</button><br>
-                <!-- <div class="input-group">
-        <div class="form-outline">
-            <input type="search" id="form1" class="form-control" />
-            <label class="form-label" for="form1">Search</label>
-        </div>
-        <button type="button" class="btn btn-primary">
-            <i class="fas fa-search"></i>
-        </button>
-    </div> -->
                 <button id="logout" class="btn btn-primary mb-2"><i class="bi bi-box-arrow-right"></i></i>Log
-                    Out</button>
+                    Out</button> -->
             </div>
-            <div class="col-6">
-                <div class="postclass">
-                    <form id="postForm" enctype="multipart/form-data">
-                        <br>
+            <div class="col-6" style="background-color:black">
 
+                <!-- <div class="input-group"> SEARCH BOX
+                    <div class="form-outline">
+                        <input type="search" id="form1" class="form-control" />
+                    </div>
+                    <button class="btn btn-primary mb-2"><i class="bi bi-search"></i>Search</button><br>
+                </div> -->
+
+                <div class="postclass">
+                    <form id="postForm" enctype="multipart/form-data" style="background-color:gray">
+                        <br>
                         <textarea id="postContent" class="form-control"></textarea><br>
                         <input type="file" name="fileToUpload" id="attachMediaPost" multiple>
                         <!-- <button id="">Add photo/video</button><br> -->
@@ -44,8 +60,9 @@
             </div>
 
             <div class="col-3 d-grid gap-2 mx-auto">
+                <!-- <button class="btn btn-primary mb-2"><i class="bi bi-bell-fill"></i>Notifications</button><br>
                 <button class="btn btn-primary mb-2"><i class="bi bi-person-fill"></i>Profile</button><br>
-                <button class="btn btn-primary mb-2"><i class="bi bi-chat-square-dots"></i>Inbox</button><br>
+                <button class="btn btn-primary mb-2"><i class="bi bi-chat-square-dots"></i>Inbox</button><br> -->
             </div>
         </div>
     </div>
