@@ -86,7 +86,7 @@ class DB
         }
         $filterSql .= "main.deleted = '0'";
 
-        $sqlCommand = "SELECT " . $fields . " from `" . $table . "` main " . $joins . ' ' . $filterSql . ' ' . $orderBy . ' ' . $groupBy;
+        $sqlCommand = "SELECT " . $fields . " from `" . $table . "` main " . $joins . ' ' . $filterSql . ' ' . $groupBy . ' ' . $orderBy;
         // echo $sqlCommand;
         $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
         $output = array();

@@ -17,8 +17,6 @@ if ($post['ajaxCall'] == 'createPost') {
     $postId = Post::createPost($post['postContent'], $profileId, $privacyType);
 
     if (isset($_FILES['file'])) {
-        $documentId = File::uploadFile($_FILES['file'], $profileId);
-        $relationPost['mediaid'] = $documentId;
 
         foreach ($_FILES['file'] as $key => $file) {
             foreach ($file as $i => $data) {
