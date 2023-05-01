@@ -101,30 +101,30 @@ $(document).ready(function () {
 
 
 
-/*    //DELETE DUHET TE FUNKSIONOJE SI KJOOO
-     var s='<button class="a"> a </button';
-      $('#anaId').append(s);
-     $(".a").on ("click", function () {
-       alert("The button was clicked.");
-       $(".a").remove();
-      });
+    /*    //DELETE DUHET TE FUNKSIONOJE SI KJOOO
+         var s='<button class="a"> a </button';
+          $('#anaId').append(s);
+         $(".a").on ("click", function () {
+           alert("The button was clicked.");
+           $(".a").remove();
+          });
+    
+    
+     */
 
 
- */
 
 
-/*
- 
-$(".deletePost").on ("click", function () {
-  alert( "are you sure you want to delete?" );
-  $(this.id).remove();
-});
+    $(".deletePost").on("click", function () {
+        alert("are you sure you want to delete?");
+        $(this.id).remove();
+    });
 
-function fshi(){
-  alert("The button was clicked.");
-  $(".a").remove();
-}
- 
+    function fshi() {
+        alert("The button was clicked.");
+        $(".a").remove();
+    }
+
 
 
 });
@@ -132,19 +132,19 @@ function fshi(){
 //likecount
 $("#likebutton").on("click", function () {
 
-  var fileData = new FormData();
-  fileData.append('ajaxCall', "countLike");
+    var fileData = new FormData();
+    fileData.append('ajaxCall', "countLike");
 
-  $.ajax({
-      url: 'ajax/ajaxPost.php',
-      type: 'POST',
-      data: fileData,
-      processData: false,  // tell jQuery not to process the data
-      contentType: false,  // tell jQuery not to set contentType
-      success: function (data) {
-          //location.reload();    
-      }
-  });
+    $.ajax({
+        url: 'ajax/ajaxPost.php',
+        type: 'POST',
+        data: fileData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        success: function (data) {
+            //location.reload();    
+        }
+    });
 
 });
-});
+//});
