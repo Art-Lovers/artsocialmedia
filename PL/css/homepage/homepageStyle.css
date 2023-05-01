@@ -1,5 +1,14 @@
-.postForm #postForm {
+body {
+    background-image: url("/PL/images/homepageBg3.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 
+}
+
+.postForm #postForm {
+    border: 2px black;
     align-items: center;
     text-align: center;
 }

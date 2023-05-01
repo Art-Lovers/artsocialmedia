@@ -12,9 +12,8 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-3 d-grid gap-2 mx-auto">
+            <div class="col-3 gap-2">
                 <button class="btn btn-primary mb-2"><i class="bi bi-house-door-fill"></i>Home</button><br>
-                <button class="btn btn-primary mb-2"><i class="bi bi-person-fill"></i>Profile</button><br>
                 <button class="btn btn-primary mb-2"><i class="bi bi-people-fill"></i>Friends</button><br>
                 <!-- <div class="input-group">
         <div class="form-outline">
@@ -44,8 +43,9 @@
                 </div>
             </div>
 
-            <div class="col-3">
-
+            <div class="col-3 d-grid gap-2 mx-auto">
+                <button class="btn btn-primary mb-2"><i class="bi bi-person-fill"></i>Profile</button><br>
+                <button class="btn btn-primary mb-2"><i class="bi bi-chat-square-dots"></i>Inbox</button><br>
             </div>
         </div>
     </div>
