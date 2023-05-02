@@ -9,7 +9,7 @@ class PostParser
             $imgData = Post::getPostMedia($data['postid']);
 
             $manageButtons = '';
-            if ($profileId = $data['profileid']) {
+            if ($profileId == $data['profileid']) {
                 $manageButtons .= '<button class="btn btn-success editpostbtn">Edit</button>';
                 $manageButtons .= '<button class="btn btn-danger deletepostbtn">Delete</button>';
             }
