@@ -21,7 +21,7 @@ class Post
 
     }
 
-    public static function getPostData()
+    public static function getPostData($start, $cnt)
     {
         $postdata = DB::select(
             'posts',
@@ -41,7 +41,19 @@ class Post
                 ),
                 'orderBy' => array('postid' => 'DESC'),
                 'groupBy' => 'postid',
-                'left join' => array(
+                'limit' => $start . ', ' . $cnt
+            )
+        );
+        return $postdata;
+    }
+
+    public static function getPostMedia($postID)
+    {
+        $postdata = DB::select(
+            'posts',
+            array('main.postid' => $postID),
+            array(
+                'join' => array(
                     array(
                         'table' => 'post_media_relation',
                         'alias' => 'post_media_relation',
@@ -74,5 +86,13 @@ class Post
         return DB::select('likes', array('postid' => $postID), array('groupBy' => 'postid', 'se' => true, 'fetch' => 'value'), 'count(*)');
     }
 
+    public static function updateLikeCount($postID)
+    {
+        $count = DB::select('likes', array('postid' => $postID), array('groupBy' => 'postid', 'se' => true, 'fetch' => 'value'), 'count(*)');
 
+        $count = (empty($count)) ? 0 : $count;
+
+        DB::updateEntity('posts', array('postid' => $postID), array('likes_counter' => $count));
+        return $count;
+    }
 }

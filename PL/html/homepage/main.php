@@ -49,11 +49,15 @@
                     <form id="postForm" enctype="multipart/form-data" style="background-color:gray">
                         <br>
                         <textarea id="postContent" class="form-control"></textarea><br>
+                        <label id="postErr"></label><br>
                         <input type="file" name="fileToUpload" id="attachMediaPost" multiple>
                         <!-- <button id="">Add photo/video</button><br> -->
                         <button class="btn btn-success" id="createPostButton">Create post</button>
                     </form>
                     <div id="anaId">
+
+                    </div>
+                    <div id="endPost">
 
                     </div>
                 </div>

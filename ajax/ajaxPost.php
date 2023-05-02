@@ -7,14 +7,17 @@ $post = $_POST;
 
 if ($post['ajaxCall'] == 'createPost') {
 
+    if (empty(trim($post['postContent']))) {
+        echo 'Error! Empty Content';
+        return;
+    }
+
     $profileId = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profileid');
-
-
 
     // echo var_dump($post['postContent']).$_FILES['file']['name'];
 
     $privacyType = DB::convertValue('post_privacy_types', 'type_code', 'public', 'typeid');
-    $postId = Post::createPost($post['postContent'], $profileId, $privacyType);
+    $postId = Post::createPost(trim($post['postContent']), $profileId, $privacyType);
 
     if (isset($_FILES['file'])) {
 
@@ -38,16 +41,16 @@ if ($post['ajaxCall'] == 'createPost') {
     return;
 }
 if ($post['ajaxCall'] == 'getPost') {
-    $postData = Post::getPostData();
-
-    echo json_encode($postData);
+    $postData = Post::getPostData($post['postcnt'], 1);
+    $profileId = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profileid');
+    echo json_encode(PostParser::createPostHtml($postData, $profileId));
 
     return;
 }
 
 if ($post['ajaxCall'] == 'countLike') {
 
-    $likeCount = Post::updateLike(43);
+    $likeCount = Post::updateLike($post['postid']);
 
     echo (empty($likeCount)) ? 0 : $likeCount;
 

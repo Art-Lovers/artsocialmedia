@@ -1,18 +1,4 @@
 $(document).ready(function () {
-    var postData = new FormData();
-    postData.append('ajaxCall', "getPost");
-
-    $.ajax({
-        url: 'ajax/ajaxPost.php',
-        type: 'POST',
-        data: postData,
-        processData: false,  // tell jQuery not to process the data
-        contentType: false,  // tell jQuery not to set contentType
-        success: function (data) {
-            $("anaId").text(String(data));
-        }
-    });
-
     $("#postForm").on("submit", function () {
 
         return false;
@@ -20,80 +6,52 @@ $(document).ready(function () {
 
     $("#createPostButton").on("click", function () {
 
-        var fileData = new FormData();
-        fileData.append('ajaxCall', "createPost");
-        fileData.append('postContent', $('#postContent').val());
+        invalidInput = false;
+        if ($('#postContent').val() == '') {
+            $('#postErr').text("Please fill the field");
+            invalidInput = true;
+        }
+        else {
+            $('#postErr').text("");
+        }
 
-        $.each($("input[type=file]"), function (i, obj) {
-            $.each(obj.files, function (i, file) {
-                fileData.append('file[' + i + ']', file);
-            })
-        });
+        if (!invalidInput) {
+            var fileData = new FormData();
+            fileData.append('ajaxCall', "createPost");
+            fileData.append('postContent', $('#postContent').val());
 
-        $.ajax({
-            url: 'ajax/ajaxPost.php',
-            type: 'POST',
-            data: fileData,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,  // tell jQuery not to set contentType
-            success: function (data) {
-                location.reload();
-            }
-        });
+            $.each($("input[type=file]"), function (i, obj) {
+                $.each(obj.files, function (i, file) {
+                    fileData.append('file[' + i + ']', file);
+                })
+            });
 
-        // $.post("ajax/ajaxPost.php", {ajaxCall: "createPost", postContent: $('#postContent').val(), file: fileData}, function(data, status){
-        //     alert("Data: " + data + "\nStatus: " + status);
-        //   });
-
-
-    });
-
-    $.post("ajax/ajaxPost.php", { ajaxCall: "getPost" }, function (data, status) {
-        $('#anaId').text('');
-        parseData = jQuery.parseJSON(data);
-
-        for (let i = 0; i < parseData.length; i++) {
-            imgData = (parseData[i]['mediaid'] !== null) ? '<img src="lib/serveImg.php?img=' + parseData[i]['mediaid'] + '">' : '';
-
-            for (let i = 0; i <= parseData.length; i++) {
-                var htmlContent = '<div class="postContent mb-2">';
-
-                htmlContent += '<label>' + parseData[i]['full_name'] + '</label><br>';
-                htmlContent += '<label>' + parseData[i]['post_content'] + '</label><br>';
-                htmlContent += imgData;
-                htmlContent += '<br><button class="likeButton"> Like </button>';
-                htmlContent += '<button> Comment </button>';
-                htmlContent += '<br>'
-                htmlContent += '</div>';
-
-                $('#anaId').append(htmlContent);
-
-            }
-
+            $.ajax({
+                url: 'ajax/ajaxPost.php',
+                type: 'POST',
+                data: fileData,
+                processData: false,  // tell jQuery not to process the data
+                contentType: false,  // tell jQuery not to set contentType
+                success: function (data) {
+                    location.reload();
+                }
+            });
         }
 
     });
 
+    loadPosts();
 
-    $(".editPost").on("click", function (id) {
-        var txt = document.getElementById("content" + id).textContent;
-        var editContent = '<textarea id="txtArea">' + txt + '</textarea><br><button class="saveChanges">Ruaj</button><button>Anullo</button>';
-        $('"#"+id').append(editContent);
-
-        $(".saveChanges").on("click", function () {
-            document.getElementById("content" + id).textContent = document.getElementsById("txtArea").value;
-        });
-
-
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            $(window).unbind('scroll');
+            loadPosts();
+        }
     });
 
-    function deletePosts(id) {
-        alert("are you sure you want to delete?");
-        $('"#"+id').remove();
-    }
+    $(".editPost").on("click", function () {
 
-
-
+    });
 
     /*    //DELETE DUHET TE FUNKSIONOJE SI KJOOO
          var s='<button class="a"> a </button';
@@ -121,9 +79,12 @@ $(document).ready(function () {
 
     //likecount
     $("#anaId").on("click", ".likeButton", function () {
-        console.log($(this));
+
         var fileData = new FormData();
         fileData.append('ajaxCall', "countLike");
+        fileData.append('postid', $(this).parent().attr('id'));
+
+        thisButton = $(this);
 
         $.ajax({
             url: 'ajax/ajaxPost.php',
@@ -132,10 +93,43 @@ $(document).ready(function () {
             processData: false,  // tell jQuery not to process the data
             contentType: false,  // tell jQuery not to set contentType
             success: function (data) {
-                //location.reload();    
+                thisButton.html('Like (' + data + ')');
             }
         });
 
     });
-
 });
+
+function loadPosts() {
+    var postData = new FormData();
+    postData.append('ajaxCall', "getPost");
+    postData.append('postcnt', $('.postContent').length);
+
+    $.ajax({
+        url: 'ajax/ajaxPost.php',
+        type: 'POST',
+        data: postData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        success: function (data) {
+            parseData = jQuery.parseJSON(data);
+            for (let i = 0; i <= parseData.length; i++) {
+                let el = $(parseData[i]);
+                el.hide().appendTo('#anaId').fadeIn();
+            }
+            if ($('#endPost').isInViewport()) {
+                loadPosts();
+            }
+        }
+    });
+}
+
+$.fn.isInViewport = function () {
+    var elementTop = $(this).offset().top;
+    var elementBottom = elementTop + $(this).outerHeight();
+
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+};

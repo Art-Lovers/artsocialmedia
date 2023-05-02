@@ -86,7 +86,12 @@ class DB
         }
         $filterSql .= "main.deleted = '0'";
 
-        $sqlCommand = "SELECT " . $fields . " from `" . $table . "` main " . $joins . ' ' . $filterSql . ' ' . $groupBy . ' ' . $orderBy;
+        $limit = '';
+        if (isset($params['limit']) && !empty($params['limit'])) {
+            $limit .= 'limit ' . $params['limit'];
+        }
+
+        $sqlCommand = "SELECT " . $fields . " from `" . $table . "` main " . $joins . ' ' . $filterSql . ' ' . $groupBy . ' ' . $orderBy . ' ' . $limit;
         // echo $sqlCommand;
         $sqlOut = mysqli_query($DATABASE_CONNECTION, $sqlCommand);
         $output = array();
@@ -228,6 +233,7 @@ class DB
         $filterSql .= "main.deleted = '0'";
 
         $fields = '`' . $table . '` main';
+        $vals = '';
         foreach ($values as $key => $val) {
             $vals .= "`" . $key . "` = '" . $val . "',";
         }

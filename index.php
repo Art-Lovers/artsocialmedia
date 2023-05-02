@@ -17,7 +17,7 @@ if (in_array($REQUESTED_PATH, $SERVER_IMPLEMENTED_PATHS)) {
             include_once $_SERVER['DOCUMENT_ROOT'] . '/PL/html/authenticate/' . $REQUESTED_PATH . '.php';
         }
     } else {
-        echo var_dump($_SESSION['userId']);
+        // echo var_dump($_SESSION['userId']);
         if (isset($_SESSION['userId'])) {
             include_once $_SERVER['DOCUMENT_ROOT'] . '/PL/html/' . explode('/', $REQUESTED_PATH)[0] . '/main.php';
         } else {
