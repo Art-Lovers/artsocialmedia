@@ -1,64 +1,57 @@
-<?php 
+<?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/lib/plib.php';
-$post=$_POST;
+include_once $_SERVER['DOCUMENT_ROOT'] . '/lib/plib.php';
+$post = $_POST;
 
 
-if($post['ajaxCall']=='signup'){
-    $data=json_decode($post['data'],true);
-    
-    foreach($data as $field){
-        $parseData[$field['name']]=$field['value'];
+if ($post['ajaxCall'] == 'signup') {
+    $data = json_decode($post['data'], true);
+
+    foreach ($data as $field) {
+        $parseData[$field['name']] = $field['value'];
     }
-    if(SignUp::isExistingAccount($parseData['username'])){
+    if (SignUp::isExistingAccount($parseData['username'])) {
         echo "Username already taken!";
-        return ;
+        return;
     }
-    if(SignUp::isExistingEmail($parseData['email'])){
+    if (SignUp::isExistingEmail($parseData['email'])) {
         echo "Email already exists!";
-        return ;
+        return;
     }
-    $userData['username']=$parseData['username'];
-    $userData['password']=password_hash($parseData['password'],PASSWORD_DEFAULT);
-    $userData['email']=$parseData['email'];
-    $profileData['display_name']=$parseData['username'];
-    $profileData['full_name']=$parseData['firstname'] .' '.$parseData['lastname'];
-    $profileData['phone_number']=$parseData['phoneNumber'];
-    $profileData['birthday']=$parseData['birthDate'];
+    $userData['username'] = $parseData['username'];
+    $userData['password'] = password_hash($parseData['password'], PASSWORD_DEFAULT);
+    $userData['email'] = $parseData['email'];
+    $profileData['display_name'] = $parseData['username'];
+    $profileData['full_name'] = $parseData['firstname'] . ' ' . $parseData['lastname'];
+    $profileData['phone_number'] = $parseData['phoneNumber'];
+    $profileData['birthday'] = $parseData['birthDate'];
 
-    SignUp::createAccount($userData,$profileData);
+    SignUp::createAccount($userData, $profileData);
     echo 'success';
-}
+} else if ($post['ajaxCall'] == 'login') {
+    $data = json_decode($post['data'], true);
 
-
-else if($post['ajaxCall']=='login'){
-    $data=json_decode($post['data'],true);
-    
-    foreach($data as $field){
-        $parseData[$field['name']]=$field['value'];
+    foreach ($data as $field) {
+        $parseData[$field['name']] = $field['value'];
     }
-    
+
     // return var_dump(Login::authenticateUser($parseData['username'], $parseData['password']));
 
-    if(Login::authenticateUser($parseData['username'], $parseData['password'])){
-        if(isset($parseData['rememberMe']) && $parseData['rememberMe'] == 'on'){
+    if (Login::authenticateUser($parseData['username'], $parseData['password'])) {
+        if (isset($parseData['rememberMe']) && $parseData['rememberMe'] == 'on') {
             Login::rememberUser();
         }
         echo 'Logged in!';
         return;
-    }
-
-    else{
+    } else {
         echo 'Ke probleme me login!';
         return;
     }
 
 
-}
+} else if ($post['ajaxCall'] == 'logout') {
 
-else if($post['ajaxCall']=='logout'){
-    
     unset($_SESSION['userId']);
     DB::TERMINATE_ENTITY('user_login_tokens', array('token' => $_COOKIE['rmbme']));
-
+    return;
 }
