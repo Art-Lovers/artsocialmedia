@@ -56,9 +56,10 @@ class PostParser
             $htmlContent[$i] .= '</div>';
             $htmlContent[$i] .= '<div class="p-2 px-3"><span>' . $data['post_content'] . '</span></div>';
             $htmlContent[$i] .= $img;
-            $htmlContent[$i] .= '<br><button class="likeButton"> Like (' . Post::updateLikeCount($data['postid']) . ') </button>';
-            $htmlContent[$i] .= '<button> Comment </button>';
-            $htmlContent[$i] .= '<br>';
+            $htmlContent[$i] .= '<div class="d-flex justify-content-end socials p-2 py-3"><i class="bi bi-hand-thumbs-up-fill text-dark likeButton">' . Post::updateLikeCount($data['postid']) . '</i><i class="fa fa-comments-o"></i><i class="fa fa-share"></i></div>';
+            // $htmlContent[$i] .= '<br><button class="likeButton"> Like (' . Post::updateLikeCount($data['postid']) . ') </button>';
+            // $htmlContent[$i] .= '<button> Comment </button>';
+            // $htmlContent[$i] .= '<br>';
             $htmlContent[$i] .= '</div>';
         }
 

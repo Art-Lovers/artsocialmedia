@@ -82,7 +82,7 @@ $(document).ready(function () {
 
         var fileData = new FormData();
         fileData.append('ajaxCall', "countLike");
-        fileData.append('postid', $(this).parent().attr('id'));
+        fileData.append('postid', $(this).parent().parent().attr('id'));
 
         thisButton = $(this);
 
@@ -93,7 +93,7 @@ $(document).ready(function () {
             processData: false,  // tell jQuery not to process the data
             contentType: false,  // tell jQuery not to set contentType
             success: function (data) {
-                thisButton.html('Like (' + data + ')');
+                thisButton.html(data);
             }
         });
 
