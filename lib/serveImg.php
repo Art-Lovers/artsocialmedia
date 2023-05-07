@@ -1,9 +1,9 @@
 <?php
-if($_SERVER['HTTP_REFERER'] == 'http://localhost/homepage'){
-    include_once $_SERVER['DOCUMENT_ROOT'].'/lib/plib.php';
+if ($_SERVER['HTTP_REFERER'] == 'http://localhost/homepage') {
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/lib/plib.php';
     $imgId = $_GET['img'];
 
-    $imgPath = DB::select('medias', array('mediaid' => $imgId), array('se' => true, 'fetch' => 'value'), 'main.media as media');
+    $imgPath = $_SERVER['DOCUMENT_ROOT'] . DB::select('medias', array('mediaid' => $imgId), array('se' => true, 'fetch' => 'value'), 'main.media as media');
     $contentType = mime_content_type($imgPath);
 
     header("Content-type: " . $contentType);

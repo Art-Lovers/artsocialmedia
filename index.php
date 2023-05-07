@@ -19,7 +19,9 @@ if (in_array($REQUESTED_PATH, $SERVER_IMPLEMENTED_PATHS)) {
     } else {
         // echo var_dump($_SESSION['userId']);
         if (isset($_SESSION['userId'])) {
+            include_once $_SERVER['DOCUMENT_ROOT'] . '/PL/html/common/header.php';
             include_once $_SERVER['DOCUMENT_ROOT'] . '/PL/html/' . explode('/', $REQUESTED_PATH)[0] . '/main.php';
+            include_once $_SERVER['DOCUMENT_ROOT'] . '/PL/html/common/footer.php';
         } else {
             header("Location: http://localhost/login");
         }

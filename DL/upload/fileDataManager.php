@@ -3,18 +3,20 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/lib/plib.php';
 
 
-class File{
+class File
+{
 
 
-    public static function uploadFile($fileData, $profileId){
+    public static function uploadFile($fileData, $profileId)
+    {
 
-        $storagelocation = $_SERVER['DOCUMENT_ROOT']."/uploads"."/";
+        $storagelocation = $_SERVER['DOCUMENT_ROOT'] . "/uploads" . "/";
         $filePath = $storagelocation . $fileData['name'];
-        move_uploaded_file( $fileData['tmp_name'], $filePath);
-        
+        move_uploaded_file($fileData['tmp_name'], $filePath);
+
 
         $fileDBdata['profileid'] = $profileId;
-        $fileDBdata['media'] = $filePath;
+        $fileDBdata['media'] = "/uploads" . "/" . $fileData['name'];
 
         return DB::addEntity('medias', $fileDBdata);
 

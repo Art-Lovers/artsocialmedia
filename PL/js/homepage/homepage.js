@@ -42,12 +42,7 @@ $(document).ready(function () {
 
     loadPosts();
 
-    $(window).scroll(function () {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-            $(window).unbind('scroll');
-            loadPosts();
-        }
-    });
+
 
     $(".editPost").on("click", function () {
 
@@ -117,9 +112,19 @@ function loadPosts() {
                 let el = $(parseData[i]);
                 el.hide().appendTo('#anaId').fadeIn();
             }
+            scrollWin();
             if ($('#endPost').isInViewport()) {
-                loadPosts();
+
             }
+        }
+    });
+}
+
+function scrollWin() {
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            $(window).unbind('scroll');
+            loadPosts();
         }
     });
 }
