@@ -46,7 +46,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="#" class="nav-link">Notifications</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Profile</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Log Out</a></li>
+                <li class="nav-item"><a href="#" id="logout" class="nav-link">Log Out</a></li>
             </ul>
             <!-- <button class="btn btn-primary mb-2"><i class="bi bi-bell-fill"></i>Notifications</button><br>
                 <button class="btn btn-primary mb-2"><i class="bi bi-chat-square-dots"></i></button><br>
