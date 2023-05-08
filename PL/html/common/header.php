@@ -13,7 +13,7 @@
     <script src="PL/js/jquery.validate.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
     <script src="PL/js/top.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <!-- <div class="row"> -->
         <!-- <a href="#" class="col-xs-4 navbar-brand">Home</a>
             <ul class=" col-xs-4 navbar-nav mx-auto">
@@ -34,7 +34,7 @@
                 <button class="btn btn-primary mb-2"><i class="bi bi-people-fill"></i>Friends</button><br> -->
         </div>
         <div class="col-8">
-            <form class="form-control">
+            <form class="form-control mt-2">
                 <input type="text" class="col-xs-4 form-control" placeholder="Search">
             </form>
             <!-- <form class="form-inline my-2 my-lg-0">
@@ -55,3 +55,5 @@
                     Out</button> -->
         </div>
     </nav>
+    <div style='margin-bottom:80px'>
+    </div>
