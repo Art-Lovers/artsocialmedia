@@ -61,7 +61,10 @@ $(document).ready(function () {
            $(".a").remove();
           });
     
-    
+     function fshi() {
+        alert("The button was clicked.");
+        $(".a").remove();
+    }
      */
 
 
@@ -72,10 +75,7 @@ $(document).ready(function () {
         $(this.id).remove();
     });
 
-    function fshi() {
-        alert("The button was clicked.");
-        $(".a").remove();
-    }
+
 
     //likecount
     $("#anaId").on("click", ".likeButton", function () {
