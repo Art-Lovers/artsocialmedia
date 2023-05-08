@@ -45,16 +45,21 @@ class PostParser
                 $img .= '</div>';
             }
 
+            $timeFromDb = date_create_from_format('Y-m-d H:i:s', $data['created_time']);
+            $offset = $_SESSION['timeOffset'];
+            $userTime = $modified = (clone $timeFromDb)->add(new DateInterval("PT{$offset}H"));
+
             $htmlContent[$i] .= '<div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">';
             $htmlContent[$i] .= '<div class="d-flex flex-row align-items-center feed-text px-2">';
-            $htmlContent[$i] .= '<div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">' . $data['full_name'] . '</span><span class="text-black-50 time">40 minutes ago</span></div>';
+            $htmlContent[$i] .= '<div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">' . $data['full_name'] . '</span><span class="text-black-50 time">' . date_format($userTime, 'D, j M Y g:i a') . '</span></div>';
             $htmlContent[$i] .= '</div><div class="feed-icon px-2">' . $manageButtons . '</div>';
             $htmlContent[$i] .= '</div>';
             $htmlContent[$i] .= '<div class="p-2 px-3"><span>' . $data['post_content'] . '</span></div>';
             $htmlContent[$i] .= $img;
-            $htmlContent[$i] .= '<br><button class="likeButton"> Like (' . Post::updateLikeCount($data['postid']) . ') </button>';
-            $htmlContent[$i] .= '<button> Comment </button>';
-            $htmlContent[$i] .= '<br>';
+            $htmlContent[$i] .= '<div class="d-flex justify-content-end socials p-2 py-3"><i class="bi bi-hand-thumbs-up-fill text-dark likeButton">' . Post::updateLikeCount($data['postid']) . '</i><i class="fa fa-comments-o"></i><i class="fa fa-share"></i></div>';
+            // $htmlContent[$i] .= '<br><button class="likeButton"> Like (' . Post::updateLikeCount($data['postid']) . ') </button>';
+            // $htmlContent[$i] .= '<button> Comment </button>';
+            // $htmlContent[$i] .= '<br>';
             $htmlContent[$i] .= '</div>';
         }
 

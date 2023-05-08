@@ -42,12 +42,7 @@ $(document).ready(function () {
 
     loadPosts();
 
-    $(window).scroll(function () {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-            $(window).unbind('scroll');
-            loadPosts();
-        }
-    });
+
 
     $(".editPost").on("click", function () {
 
@@ -82,7 +77,7 @@ $(document).ready(function () {
 
         var fileData = new FormData();
         fileData.append('ajaxCall', "countLike");
-        fileData.append('postid', $(this).parent().attr('id'));
+        fileData.append('postid', $(this).parent().parent().attr('id'));
 
         thisButton = $(this);
 
@@ -93,7 +88,7 @@ $(document).ready(function () {
             processData: false,  // tell jQuery not to process the data
             contentType: false,  // tell jQuery not to set contentType
             success: function (data) {
-                thisButton.html('Like (' + data + ')');
+                thisButton.html(data);
             }
         });
 
@@ -117,9 +112,19 @@ function loadPosts() {
                 let el = $(parseData[i]);
                 el.hide().appendTo('#anaId').fadeIn();
             }
+            scrollWin();
             if ($('#endPost').isInViewport()) {
-                loadPosts();
+
             }
+        }
+    });
+}
+
+function scrollWin() {
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            $(window).unbind('scroll');
+            loadPosts();
         }
     });
 }
