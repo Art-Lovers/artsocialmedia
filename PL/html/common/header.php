@@ -11,6 +11,7 @@
 <body>
     <script src="PL/js/jquery-3.6.4.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
     <script src="PL/js/jquery.validate.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
+    <script src="PL/js/bootstrap.bundle.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
     <script src="PL/js/top.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">

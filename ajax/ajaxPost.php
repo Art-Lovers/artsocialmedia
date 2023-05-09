@@ -48,6 +48,16 @@ if ($post['ajaxCall'] == 'getPost') {
     return;
 }
 
+if ($post['ajaxCall'] == 'deletePost') {
+    if (Post::hasPostPerm($post['postid'])) {
+        echo Post::deletePost($post['postid']);
+    } else {
+        echo "You can not do this!";
+    }
+
+    return;
+}
+
 if ($post['ajaxCall'] == 'countLike') {
 
     $likeCount = Post::updateLike($post['postid']);

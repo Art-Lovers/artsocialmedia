@@ -4,6 +4,25 @@ $(document).ready(function () {
         return false;
     });
 
+    $("#anaId").on("click", '.deletepostbtn', function () {
+        var formData = new FormData();
+        formData.append('ajaxCall', "deletePost");
+        formData.append('postid', $(this).data('postid'));
+
+        $.ajax({
+            url: 'ajax/ajaxPost.php',
+            type: 'POST',
+            data: formData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,  // tell jQuery not to set contentType
+            success: function (data) {
+                if (data != 'You can not do this!') {
+                    location.reload();
+                }
+            }
+        });
+    });
+
     $("#createPostButton").on("click", function () {
 
         invalidInput = false;
@@ -64,14 +83,6 @@ $(document).ready(function () {
 
 
 
-
-    $(".deletePost").on("click", function () {
-        alert("are you sure you want to delete?");
-        $(this.id).remove();
-    });
-
-
-
     //likecount
     $("#anaId").on("click", ".likeButton", function () {
 
@@ -114,7 +125,6 @@ function loadPosts() {
             }
             scrollWin();
             if ($('#endPost').isInViewport()) {
-
             }
         }
     });

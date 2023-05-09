@@ -10,8 +10,8 @@ class PostParser
 
             $manageButtons = '';
             if ($profileId == $data['profileid']) {
-                $manageButtons .= '<button class="btn btn-success btn-sm editpostbtn">Edit</button>';
-                $manageButtons .= '<button class="btn btn-danger btn-sm deletepostbtn">Delete</button>';
+                $manageButtons .= '<button class="btn btn-success btn-sm editpostbtn" data-postid="' . $data['postid'] . '">Edit</button>';
+                $manageButtons .= '<button class="btn btn-danger btn-sm deletepostbtn" data-postid="' . $data['postid'] . '">Delete</button>';
             }
 
             $htmlContent[$i] = '<div class="postContent bg-light border mt-2" id="' . $data['postid'] . '">';

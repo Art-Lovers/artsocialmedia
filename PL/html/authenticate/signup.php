@@ -4,6 +4,8 @@
 <head>
     <title>Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="PL/css/style2.css?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>">
 </head>
 
@@ -23,7 +25,8 @@
             </div>
             <div class="input_box">
                 <label for="">Username</label>
-                <input type="text" name="username" class="input user1" placeholder="Enter your username" minlength="5" required>
+                <input type="text" name="username" class="input user1" placeholder="Enter your username" minlength="5"
+                    required>
                 <label class="error" id='userErr'></label>
             </div>
             <div class="column">
@@ -50,7 +53,7 @@
                         <label for="check-male">Male</label>
                     </div>
                     <div class='gender'>
-                        <input type="radio" id="check-female" name=gender  value="f" checked>
+                        <input type="radio" id="check-female" name=gender value="f" checked>
                         <label for="check-female">Female</label>
 
                     </div>
@@ -63,26 +66,41 @@
             </div>
             <div class="input_box">
                 <label for="">Create Password</label>
-                <input type="password" name="password" class="input" placeholder="minimum length is 8 characters" minlength="8"
-                    maxlength="30" required>
+                <input type="password" name="password" class="input" placeholder="minimum length is 8 characters"
+                    minlength="8" maxlength="30" required>
                 <label class="error" id='passwordErr'></label>
             </div>
             <div class="input_box">
                 <label for="">Confirm Password</label>
                 <input type="password" name="confirmpassword" class="input" placeholder="Confirm Password" minlength="8"
                     maxlength="30" required>
-                    <label class="error" id='passconfirmfErr'></label>
+                <label class="error" id='passconfirmfErr'></label>
             </div>
 
             <button type="submit" name="createAccountBtn" class="creatAcc">Create Account</button>
 
         </form>
-        
-    </section>
 
+    </section>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                </div>
+                <div class="modal-body">
+                    <p>Registered Successfuly! You will be redirected to the LogIn page shortly!</p>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="PL/js/jquery-3.6.4.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
+    <script src="PL/js/bootstrap.bundle.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
     <script src="PL/js/signupScript.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
-    <script src="PL/js/jquery.validate.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>    
+    <script src="PL/js/jquery.validate.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
 </body>
 
 </html>
