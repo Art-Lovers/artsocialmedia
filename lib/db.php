@@ -247,6 +247,7 @@ class DB
     }
 
     public static function deleteEntityById($table, $id)
+    
     {
         global $DATABASE_CONNECTION;
 
