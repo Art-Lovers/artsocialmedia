@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('#exampleModalCenter').modal('hide');
     $("#loginForm").on("submit", function () {
         invalidInput = false;
         if (!($('.input[name="username"]').val().match(/^[A-Za-z0-9]+$/))) {
@@ -19,11 +20,12 @@ $(document).ready(function () {
         if (invalidInput == false) {
 
             $.post("ajax/ajaxAuthenticate.php", { ajaxCall: "login", data: JSON.stringify($("#loginForm").serializeArray()) }, function (data, status) {
-                alert("Data: " + data + "\nStatus: " + status);
-
                 if (data == 'Logged in!') {
-
-                    window.location.replace("/homepage");
+                    $('#exampleModalCenter').modal('show')
+                    setTimeout(function () { window.location.replace("/homepage"); }, 4000);
+                }
+                else if (data == 'Ke probleme me login!') {
+                    $('#userError').text("Username or Password may not be correct!");
                 }
             });
 

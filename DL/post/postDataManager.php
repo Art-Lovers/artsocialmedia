@@ -95,4 +95,16 @@ class Post
         DB::updateEntity('posts', array('postid' => $postID), array('likes_counter' => $count));
         return $count;
     }
+
+    public static function hasPostPerm($postID)
+    {
+        $userProfileID = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profileid');
+
+        return !empty(DB::select('posts', array('postid' => $postID, 'profileid' => $userProfileID)));
+    }
+
+    public static function deletePost($postID)
+    {
+        return DB::deleteEntityById('posts', $postID);
+    }
 }

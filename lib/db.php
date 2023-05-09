@@ -253,13 +253,12 @@ class DB
 
         $id = mysqli_real_escape_string($DATABASE_CONNECTION, $id);
 
-        $res = mysqli_query($DATABASE_CONNECTION, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.columns WHERE TABLE_NAME = '" . $table . "' and TABLE_SCHEMA = 'artsocialmedia' limit 1");
+        $res = mysqli_query($DATABASE_CONNECTION, "SELECT * FROM INFORMATION_SCHEMA.columns WHERE TABLE_NAME = '" . $table . "' and TABLE_SCHEMA = 'artsocialmedia' Order by ORDINAL_POSITION limit 1");
         while ($row = mysqli_fetch_assoc($res)) {
             $vals[] = $row;
         }
-        foreach ($vals as $val) {
-            $idCol = $val['COLUMN_NAME'];
-        }
+
+        $idCol = $vals[0]['COLUMN_NAME'];
 
         return DB::updateEntity($table, array($idCol => $id), array('deleted' => 1));
 
