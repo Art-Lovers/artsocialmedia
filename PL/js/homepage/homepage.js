@@ -5,20 +5,35 @@ $(document).ready(function () {
     });
 
     $("#anaId").on("click", '.deletepostbtn', function () {
-        var formData = new FormData();
-        formData.append('ajaxCall', "deletePost");
-        formData.append('postid', $(this).data('postid'));
+        Swal.fire({
+            title: 'Are you sure you want to delete this post?',
+            icon: 'info',
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:
+                'Yes, I am!',
+            confirmButtonAriaLabel: 'Yes, I am!',
+            cancelButtonText:
+                'No! Take me back!',
+            cancelButtonAriaLabel: 'No! Take me back!',
+            preConfirm: () => {
+                var formData = new FormData();
+                formData.append('ajaxCall', "deletePost");
+                formData.append('postid', $(this).data('postid'));
 
-        $.ajax({
-            url: 'ajax/ajaxPost.php',
-            type: 'POST',
-            data: formData,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,  // tell jQuery not to set contentType
-            success: function (data) {
-                if (data != 'You can not do this!') {
-                    location.reload();
-                }
+                $.ajax({
+                    url: 'ajax/ajaxPost.php',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType
+                    success: function (data) {
+                        if (data != 'You can not do this!') {
+                            location.reload();
+                        }
+                    }
+                });
             }
         });
     });
@@ -42,7 +57,7 @@ $(document).ready(function () {
             $.each($("input[type=file]"), function (i, obj) {
                 $.each(obj.files, function (i, file) {
                     fileData.append('file[' + i + ']', file);
-                })
+                });
             });
 
             $.ajax({
@@ -102,7 +117,37 @@ $(document).ready(function () {
                 thisButton.html(data);
             }
         });
+    });
 
+    $("input[type=file]").on('change', function () {
+        $img = '<div id="carouselPostcarouselPostCreatinguno" class="carousel slide" data-ride="carousel">';
+        $img += '<ol class="carousel-indicators">';
+        $.each(this.files, function (i, file) {
+            $active = (i == 0) ? 'class="active"' : '';
+            $img += '<li data-target="#carouselPostcarouselPostCreatinguno" data-slide-to="' + i + '" ' + $active + '></li>';
+        });
+        $img += '</ol>';
+        $img += '<div class="carousel-inner">';
+        $.each(this.files, function (i, file) {
+            $active = (i == 0) ? 'active' : '';
+            $img += '<div class="carousel-item ' + $active + '">';
+            $img += '<div class="feed-image p-2 px-3">';
+            reader.readAsDataURL(file);
+            $img += '<img src="' + URL.createObjectURL(file) + '">';
+            $img += '</div></div>';
+        });
+        $img += '</div>';
+        $img += '<a class="carousel-control-prev" href="#carouselPostcarouselPostCreatinguno" role="button" data-slide="prev">';
+        $img += '<span class="carousel-control-prev-icon"></span>';
+        $img += '<span class="sr-only">Previous</span>';
+        $img += '</a>';
+        $img += '<a class="carousel-control-next" href="#carouselPostcarouselPostCreatinguno" role="button" data-slide="next">';
+        $img += '<span class="carousel-control-next-icon"></span>';
+        $img += '<span class="sr-only">Next</span>';
+        $img += '</a>';
+        $img += '</div>';
+
+        $(".showImagePreviewHere").html($img);
     });
 });
 

@@ -28,6 +28,7 @@
                         <div class="p-2 px-3">
                             <textarea id="postContent" class="form-control"></textarea>
                             <label id="postErr"></label>
+                            <div class="showImagePreviewHere"></div>
                         </div>
                         <div class="d-flex justify-content-end socials p-2 py-3">
                             <!-- <input type="file" name="fileToUpload" id="attachMediaPost" multiple> -->

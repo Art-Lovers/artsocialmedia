@@ -6,12 +6,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="PL/css/sweetalert2.min.css?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>">
 </head>
 
 <body>
     <script src="PL/js/jquery-3.6.4.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
     <script src="PL/js/jquery.validate.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
     <script src="PL/js/bootstrap.bundle.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
+    <script src="PL/js/sweetalert2.all.min.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
     <script src="PL/js/top.js?v=<?php echo $GLOBAL_SCRIPTS_VER; ?>"></script>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
