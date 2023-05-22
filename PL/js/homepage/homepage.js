@@ -132,7 +132,6 @@ $(document).ready(function () {
             $active = (i == 0) ? 'active' : '';
             $img += '<div class="carousel-item ' + $active + '">';
             $img += '<div class="feed-image p-2 px-3">';
-            reader.readAsDataURL(file);
             $img += '<img src="' + URL.createObjectURL(file) + '">';
             $img += '</div></div>';
         });
