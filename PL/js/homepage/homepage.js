@@ -187,19 +187,6 @@ $(document).ready(function () {
 
     });
 
-    /*    //DELETE DUHET TE FUNKSIONOJE SI KJOOO
-         var s='<button class="a"> a </button';
-          $('#anaId').append(s);
-         $(".a").on ("click", function () {
-           alert("The button was clicked.");
-           $(".a").remove();
-          });
-    
-     function fshi() {
-        alert("The button was clicked.");
-        $(".a").remove();
-    }
-     */
 
 
 
