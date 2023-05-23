@@ -38,6 +38,115 @@ $(document).ready(function () {
         });
     });
 
+    $("#anaId").on("click", '.editpostbtn', function () {
+        postId = $(this).data('postid');
+
+        var ajaxData = new FormData();
+        ajaxData.append('ajaxCall', "getEditData");
+        ajaxData.append('postid', $(this).data('postid'));
+
+        $.ajax({
+            url: 'ajax/ajaxPost.php',
+            type: 'POST',
+            data: ajaxData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,  // tell jQuery not to set contentType
+            success: function (data) {
+                if (data != 'You can not do this!') {
+                    parseData = jQuery.parseJSON(data)[0];
+                    html = '<div class="modal fade" id="editpost' + $(this).data('postid') + '" tabindex="-1" role="dialog"'
+                        + 'aria-labelledby="exampleModalCenterTitle" aria-hidden="true">'
+                        + '<div class="modal-dialog modal-dialog-centered" role="document">'
+                        + '<div class="modal-content">'
+                        + '<div class="modal-header">'
+                        + '<h5 class="modal-title">Edit</h5>'
+                        + '</div>'
+                        + '<div class="modal-body">'
+                        + '<div class="p-2 px-3">'
+                        + '<textarea id="postContent' + $(this).data('postid') + '" class="form-control" maxlength="1000">' + parseData.post_content + '</textarea>'
+                        + '<label id="postErr' + $(this).data('postid') + '"></label>'
+                        + '<div class="showImagePreviewHere' + $(this).data('postid') + '"></div>'
+                        + '</div>'
+                        + '<div class="d-flex justify-content-end socials p-2 py-3">'
+                        + '<label class="btn btn-success"><input type="file" class="Document" id="attachMediaPostID' + $(this).data('postid') + '" name="fileToUpload" accept="image/*" multiple /><i class="bi bi-images" aria-hidden="true"></i>AddImages</label>'
+                        + '<button class="btn btn-success" id="editPostButton' + $(this).data('postid') + '">Edit Post</button>'
+                        + '</div>'
+                        + '</div>'
+                        + '<div class="modal-footer">'
+                        + '</div>'
+                        + '</div>'
+                        + '</div>'
+                        + '</div>'
+                    $("#endPost").html(html);
+                    $('#editpost' + $(this).data('postid')).modal('show');
+                    $("#attachMediaPostID" + $(this).data('postid')).on('change', function () {
+                        $img = '<div id="carouselPostcarouselPostCreating' + postId + '" class="carousel slide" data-ride="carousel">';
+                        $img += '<ol class="carousel-indicators">';
+                        $.each(this.files, function (i, file) {
+                            $active = (i == 0) ? 'class="active"' : '';
+                            $img += '<li data-target="#carouselPostcarouselPostCreating' + postId + '" data-slide-to="' + i + '" ' + $active + '></li>';
+                        });
+                        $img += '</ol>';
+                        $img += '<div class="carousel-inner">';
+                        $.each(this.files, function (i, file) {
+                            $active = (i == 0) ? 'active' : '';
+                            $img += '<div class="carousel-item ' + $active + '">';
+                            $img += '<div class="feed-image p-2 px-3">';
+                            $img += '<img src="' + URL.createObjectURL(file) + '">';
+                            $img += '</div></div>';
+                        });
+                        $img += '</div>';
+                        $img += '<a class="carousel-control-prev" href="#carouselPostcarouselPostCreating' + postId + '" role="button" data-slide="prev">';
+                        $img += '<span class="carousel-control-prev-icon"></span>';
+                        $img += '<span class="sr-only">Previous</span>';
+                        $img += '</a>';
+                        $img += '<a class="carousel-control-next" href="#carouselPostcarouselPostCreating' + postId + '" role="button" data-slide="next">';
+                        $img += '<span class="carousel-control-next-icon"></span>';
+                        $img += '<span class="sr-only">Next</span>';
+                        $img += '</a>';
+                        $img += '</div>';
+
+                        $(".showImagePreviewHere").html($img);
+                    });
+                    $('#editPostButton' + $(this).data('postid')).on('click', function () {
+                        invalidInput = false;
+                        if ($('#postContent' + postId).val() == '') {
+                            $('#postErr' + postId).text("Please fill the field");
+                            invalidInput = true;
+                        }
+                        else {
+                            $('#postErr' + postId).text("");
+                        }
+
+                        if (!invalidInput) {
+                            var fileData = new FormData();
+                            fileData.append('ajaxCall', "editPost");
+                            fileData.append('postid', postId);
+                            fileData.append('postContent', $('#postContent' + $(this).data('postid')).val());
+
+                            $.each($("input[type=file]"), function (i, obj) {
+                                $.each(obj.files, function (i, file) {
+                                    fileData.append('file[' + i + ']', file);
+                                });
+                            });
+
+                            $.ajax({
+                                url: 'ajax/ajaxPost.php',
+                                type: 'POST',
+                                data: fileData,
+                                processData: false,  // tell jQuery not to process the data
+                                contentType: false,  // tell jQuery not to set contentType
+                                success: function (data) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    });
+
     $("#createPostButton").on("click", function () {
 
         invalidInput = false;
@@ -73,10 +182,6 @@ $(document).ready(function () {
         }
 
     });
-
-    loadPosts();
-
-
 
     $(".editPost").on("click", function () {
 
@@ -148,6 +253,7 @@ $(document).ready(function () {
 
         $(".showImagePreviewHere").html($img);
     });
+    loadEngine();
 });
 
 function loadPosts() {
@@ -167,11 +273,15 @@ function loadPosts() {
                 let el = $(parseData[i]);
                 el.hide().appendTo('#anaId').fadeIn();
             }
-            scrollWin();
-            if ($('#endPost').isInViewport()) {
-            }
         }
     });
+}
+
+function loadEngine() {
+    if ($('#endPost').isInViewport()) {
+        loadPosts();
+    }
+    setTimeout(loadEngine, 1000);
 }
 
 function scrollWin() {
@@ -185,10 +295,9 @@ function scrollWin() {
 
 $.fn.isInViewport = function () {
     var elementTop = $(this).offset().top;
-    var elementBottom = elementTop + $(this).outerHeight();
 
     var viewportTop = $(window).scrollTop();
-    var viewportBottom = viewportTop + $(window).height();
+    var viewportBottom = viewportTop + screen.height + 200;
 
-    return elementBottom > viewportTop && elementTop < viewportBottom;
+    return elementTop < viewportBottom;
 };

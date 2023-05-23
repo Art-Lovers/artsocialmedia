@@ -9,23 +9,19 @@ class Post
 
     public static function createPost($postContent, $profileId, $privacyType, $mediaId = "")
     {
-
         $postData['profileid'] = $profileId;
         $postData['post_content'] = $postContent;
         $postData['post_privacyid'] = $privacyType;
 
 
         return DB::addEntity('posts', $postData);
-
-
-
     }
 
-    public static function getPostData($start, $cnt)
+    public static function getPostData($start = 1, $cnt = 1, $filter = array())
     {
         $postdata = DB::select(
             'posts',
-            array(),
+            $filter,
             array(
                 'join' => array(
                     array(
@@ -43,6 +39,16 @@ class Post
                 'groupBy' => 'postid',
                 'limit' => $start . ', ' . $cnt
             )
+        );
+        return $postdata;
+    }
+
+    public static function getContentPostData($filter = array())
+    {
+        $postdata = DB::select(
+            'posts',
+            $filter,
+            array()
         );
         return $postdata;
     }
@@ -106,5 +112,13 @@ class Post
     public static function deletePost($postID)
     {
         return DB::deleteEntityById('posts', $postID);
+    }
+
+    public static function editPost($postContent, $postID)
+    {
+        $postData['post_content'] = $postContent;
+        $postData['edited_time'] = 'now()';
+
+        return DB::updateEntity('posts', array('main.postid' => $postID), $postData);
     }
 }

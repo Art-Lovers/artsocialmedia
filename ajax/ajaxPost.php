@@ -58,6 +58,26 @@ if ($post['ajaxCall'] == 'deletePost') {
     return;
 }
 
+if ($post['ajaxCall'] == 'getEditData') {
+    if (Post::hasPostPerm($post['postid'])) {
+        echo json_encode(Post::getContentPostData(array('main.postid' => $post['postid'])));
+    } else {
+        echo "You can not do this!";
+    }
+
+    return;
+}
+
+if ($post['ajaxCall'] == 'editPost') {
+    if (Post::hasPostPerm($post['postid'])) {
+        echo Post::editPost($post['postContent'], $post['postid']);
+    } else {
+        echo "You can not do this!";
+    }
+
+    return;
+}
+
 if ($post['ajaxCall'] == 'countLike') {
 
     $likeCount = Post::updateLike($post['postid']);

@@ -26,7 +26,7 @@
                             </div><br>
                         </div>
                         <div class="p-2 px-3">
-                            <textarea id="postContent" class="form-control"></textarea>
+                            <textarea id="postContent" class="form-control" maxlength="1000"></textarea>
                             <label id="postErr"></label>
                             <div class="showImagePreviewHere"></div>
                         </div>
