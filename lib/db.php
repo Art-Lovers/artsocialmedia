@@ -235,7 +235,11 @@ class DB
         $fields = '`' . $table . '` main';
         $vals = '';
         foreach ($values as $key => $val) {
-            $vals .= "`" . $key . "` = '" . $val . "',";
+            if ($val == 'now()') {
+                $vals .= "`" . $key . "` = " . $val . ",";
+            } else {
+                $vals .= "`" . $key . "` = '" . $val . "',";
+            }
         }
         $vals = trim($vals, ',') . '';
 
@@ -247,7 +251,6 @@ class DB
     }
 
     public static function deleteEntityById($table, $id)
-    
     {
         global $DATABASE_CONNECTION;
 

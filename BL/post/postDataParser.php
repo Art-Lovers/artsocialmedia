@@ -47,11 +47,17 @@ class PostParser
 
             $timeFromDb = date_create_from_format('Y-m-d H:i:s', $data['created_time']);
             $offset = $_SESSION['timeOffset'];
+            if (!empty($data['edited_time'])) {
+                $editedTimeDb = date_create_from_format('Y-m-d H:i:s', $data['edited_time']);
+                $userEditedTime = $modified2 = (clone $editedTimeDb)->add(new DateInterval("PT{$offset}H"));
+            }
             $userTime = $modified = (clone $timeFromDb)->add(new DateInterval("PT{$offset}H"));
+
+            $timeDisplay = (empty($editedTimeDb)) ? date_format($userTime, 'D, j M Y g:i a') : date_format($userTime, 'D, j M Y g:i a') . ' (EDITED ON ' . date_format($userEditedTime, 'D, j M Y g:i a') . ')';
 
             $htmlContent[$i] .= '<div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">';
             $htmlContent[$i] .= '<div class="d-flex flex-row align-items-center feed-text px-2">';
-            $htmlContent[$i] .= '<div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">' . $data['full_name'] . '</span><span class="text-black-50 time">' . date_format($userTime, 'D, j M Y g:i a') . '</span></div>';
+            $htmlContent[$i] .= '<div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">' . $data['full_name'] . '</span><span class="text-black-50 time">' . $timeDisplay . '</span></div>';
             $htmlContent[$i] .= '</div><div class="feed-icon px-2">' . $manageButtons . '</div>';
             $htmlContent[$i] .= '</div>';
             $htmlContent[$i] .= '<div class="p-2 px-3"><span>' . $data['post_content'] . '</span></div>';
