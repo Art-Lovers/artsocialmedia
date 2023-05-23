@@ -92,6 +92,15 @@ class Post
         return DB::select('likes', array('postid' => $postID), array('groupBy' => 'postid', 'se' => true, 'fetch' => 'value'), 'count(*)');
     }
 
+    public static function isLikedByCurrent($postID)
+    {
+
+        $profileID = DB::convertValue('profiles', 'userid', $_SESSION['userId'], 'profileid');
+        $checkLike = DB::select('likes', array('postid' => $postID, 'profileid' => $profileID), array());
+
+        return !empty($checkLike);
+    }
+
     public static function updateLikeCount($postID)
     {
         $count = DB::select('likes', array('postid' => $postID), array('groupBy' => 'postid', 'se' => true, 'fetch' => 'value'), 'count(*)');

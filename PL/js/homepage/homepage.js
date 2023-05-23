@@ -268,7 +268,7 @@ function loadEngine() {
     if ($('#endPost').isInViewport()) {
         loadPosts();
     }
-    setTimeout(loadEngine, 1000);
+    setTimeout(loadEngine, 2000);
 }
 
 function scrollWin() {
